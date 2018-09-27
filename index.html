@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -24,6 +24,17 @@
   firebase.initializeApp(config);
 </script>
     <script src="main.js"></script>
+  <script src="api.js"></script>
+  <script src="firebase.js"></script>
+   
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  
+    <script>jQuery.ajaxPrefilter(function(options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'http://uncc-cors-proxy.herokuapp.com/' + options.url;
+        }
+      });</script>
 </head>
 
 <body>
@@ -58,14 +69,14 @@
                     </div>
                     <div class="field">
                         <label class="label">Arriving Date</label>
-                        <input type="text" class="input is-success" id="start-date" placeholder="05/23/2019">
+                        <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25" min="2018-01-01" max="2020-12-31">
                     </div>
                     <div class="field">
                         <label class="label">Leaving Date</label>
-                        <input type="text" class="input is-success" id="end-date" placeholder="05/25/2019">
+                        <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30" min="2018-01-01" max="2020-12-31">
                     </div>
                     <br>
-                    <input type="submit" value="Submit" class="button is-primary is-medium">
+                    <input type="submit" value="Submit" class="button is-primary is-medium" id="submit-btn">
                 </form>
             </div>
         </article>
@@ -75,6 +86,7 @@
             </div>
             <div class="message-body">
                 <div id="eventHolder">
+                    
                 </div>
             </div>
         </article>
@@ -90,4 +102,9 @@
         </div>
     </section>
 
-    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> </body> </html>
+    <script src="api.js"></script>
+    <script src="firebase.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+
