@@ -2,3 +2,12 @@
     position: relative;
     top: -20px;
 }
+
+#new-plan-button-div{
+    padding-left:62px;
+}
+
+.columns{
+    position: relative;
+    right:25px;
+}

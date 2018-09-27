@@ -10,27 +10,38 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAxAKCUoVsIwle4B3Ot1Kx4rmv-XelD0OE",
+    authDomain: "group-planner-93fd0.firebaseapp.com",
+    databaseURL: "https://group-planner-93fd0.firebaseio.com",
+    projectId: "group-planner-93fd0",
+    storageBucket: "group-planner-93fd0.appspot.com",
+    messagingSenderId: "289913769436"
+  };
+  firebase.initializeApp(config);
+</script>
     <script src="main.js"></script>
 </head>
 
 <body>
     <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
+        <div class="container">
+            <div class="hero-body">
                 <h1 class="title is-1">Weekend Event Planner</h1>
                 <h2 class="subtitle">Planned and Prepared.</h2>
-
             </div>
-        </div>
-        <div class="hero-foot">
-            <div class="columns">
-                <div class="column is-three-quarters"></div>
-                <div class="column">
-                    <a href="" class="button is-primary is-inverted is-large id=new-plan-button"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp; New Plan</a>
+            <div class="hero-foot">
+                <div class="columns">
+                    <div class="column" id="new-plan-button-div">
+                        <div class="level-right"> <a href="" class="button is-primary is-inverted is-large" id="new-plan-button"><i
+                                    class="fa fa-plus" aria-hidden="true"></i>&nbsp; New Plan</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <br>
@@ -70,9 +81,13 @@
 
     </div>
     <br>
-    <footer class="footer has-background-primary">
-    </footer>
+    <section class="hero is-primary" id="page-footer">
+        <div class="hero-body">
+            <div class="container">
+                <h2 class="subtitle has-text-centered">Developed By Max Allee, Nicole Barry, Christian Brooks, and
+                    Jeremiah Schmutz</h2>
+            </div>
+        </div>
+    </section>
 
-    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> 
-</body> 
-</html>
+    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> </body> </html>
