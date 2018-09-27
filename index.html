@@ -10,8 +10,16 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+  
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  
+    <script>jQuery.ajaxPrefilter(function(options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            options.url = 'http://uncc-cors-proxy.herokuapp.com/' + options.url;
+        }
+    });</script>
+  
     <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
     <script src="firebase.js"></script>
     <script src="main.js"></script>
@@ -77,5 +85,4 @@
     <footer class="footer has-background-primary">
     </footer>
 </body>
-
 </html>
