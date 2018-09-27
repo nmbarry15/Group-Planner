@@ -31,12 +31,16 @@ var placeholderEventObject = {
 plansDirectory.push(placeholderEventObject)
 
 plansDirectory.on("child_added", function (snap) {
-    console.log(snap.val());
-    // console.log(snap.val().title);
-    // console.log(snap.val().poster);
-    // console.log(snap.val().description);
-    // console.log(snap.val().time);
-    // console.log(snap.val().url);
+    var display = $("#eventHolder");
+
+    var displayTitle = $("<p>").text(snap.val().title);
+    var displayPoster = $("<img>").attr("src", snap.val().poster);
+    var displayDescription = $("<p>").text(snap.val().description);
+    var displayTime = $("<p>").text(snap.val().time);
+    var displayUrl = $("<a>").attr("href", snap.val().url);
+
+    displayUrl.append(displayTitle, displayPoster, displayDescription, displayTime);
+    display.append(displayUrl);
 })
 
 
