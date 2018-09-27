@@ -1,1 +1,1 @@
-# Weekend-Planner
+# Group-Planner
