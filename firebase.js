@@ -31,7 +31,7 @@ var placeholderEventObject = {
 plansDirectory.push(placeholderEventObject)
 
 plansDirectory.on("child_added", function (snap) {
-    console.log(snap.val());
+    //console.log(snap.val());
     // console.log(snap.val().title);
     // console.log(snap.val().poster);
     // console.log(snap.val().description);
