@@ -47,14 +47,14 @@
                     </div>
                     <div class="field">
                         <label class="label">Arriving Date</label>
-                        <input type="text" class="input is-success" id="start-date" placeholder="05/23/2019">
+                        <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25" min="2018-01-01" max="2020-12-31">
                     </div>
                     <div class="field">
                         <label class="label">Leaving Date</label>
-                        <input type="text" class="input is-success" id="end-date" placeholder="05/25/2019">
+                        <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30" min="2018-01-01" max="2020-12-31">
                     </div>
                     <br>
-                    <input type="submit" value="Submit" class="button is-primary is-medium">
+                    <input type="submit" value="Submit" class="button is-primary is-medium" id="submit-btn">
                 </form>
             </div>
         </article>
@@ -64,6 +64,7 @@
             </div>
             <div class="message-body">
                 <div id="eventHolder">
+                    
                 </div>
             </div>
         </article>
@@ -73,6 +74,4 @@
     <footer class="footer has-background-primary">
     </footer>
 
-    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> 
-</body> 
-</html>
+    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> </body> </html>
