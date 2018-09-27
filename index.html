@@ -46,16 +46,43 @@
     <div class="container">
         <article class="message is-primary">
             <div class="message-header">
-                <p>About Us</p>
+                <p>Destination and Dates</p>
             </div>
             <div class="message-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt animi, facilis laudantium eaque
-                repudiandae optio asperiores quos cumque minus, officia at necessitatibus soluta ut odit incidunt sint
-                blanditiis obcaecati inventore.
+                <form>
+                    <div class="field">
+                        <label class="label">Location</label>
+                        <input type="text" class="input is-success" id="location" placeholder="New York">
+                    </div>
+                    <div class="field">
+                        <label class="label">Arriving Date</label>
+                        <input type="text" class="input is-success" id="start-date" placeholder="05/23/2019">
+                    </div>
+                    <div class="field">
+                        <label class="label">Leaving Date</label>
+                        <input type="text" class="input is-success" id="end-date" placeholder="05/25/2019">
+                    </div>
+                    <br>
+                    <input type="submit" value="Submit" class="button is-primary is-medium">
+                </form>
             </div>
         </article>
-    </div>
-    <script src="main.js"></script>
-</body>
+        <article class="message is-primary">
+            <div class="message-header">
+                <p>Things to Do</p>
+            </div>
+            <div class="message-body">
+                <div id="eventHolder">
+                </div>
+            </div>
+        </article>
 
+    </div>
+    <br>
+    <footer class="footer has-background-primary">
+    </footer>
+  
+    <script src="main.js"></script>
+    <script src=“https://www.gstatic.com/firebasejs/5.5.1/firebase.js“> </script> 
+</body> 
 </html>
