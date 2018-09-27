@@ -5,18 +5,8 @@ var eventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 var eventTime = "04:30";
 var eventUrl = "http://charlotte.eventful.com/events/indecision-live-music-yard-/E0-001-117653619-8?utm_source=apis&utm_medium=apim&utm_campaign=apic";
 
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyAxAKCUoVsIwle4B3Ot1Kx4rmv-XelD0OE",
-    authDomain: "group-planner-93fd0.firebaseapp.com",
-    databaseURL: "https://group-planner-93fd0.firebaseio.com",
-    projectId: "group-planner-93fd0",
-    storageBucket: "group-planner-93fd0.appspot.com",
-    messagingSenderId: "289913769436"
-};
-
-firebase.initializeApp(config);
-
+// If you are doing a firebase call in other files make sure you use firebase.database()
+// because this file isn't necasarrily loaded first.
 var database = firebase.database();
 var plansDirectory = database.ref("/plans");
 
@@ -31,12 +21,24 @@ var placeholderEventObject = {
 plansDirectory.push(placeholderEventObject)
 
 plansDirectory.on("child_added", function (snap) {
+
     //console.log(snap.val());
     // console.log(snap.val().title);
     // console.log(snap.val().poster);
     // console.log(snap.val().description);
     // console.log(snap.val().time);
     // console.log(snap.val().url);
+
+    var display = $("#eventHolder");
+
+    var displayTitle = $("<p>").text(snap.val().title);
+    var displayPoster = $("<img>").attr("src", snap.val().poster);
+    var displayDescription = $("<p>").text(snap.val().description);
+    var displayTime = $("<p>").text(snap.val().time);
+    var displayUrl = $("<a>").attr("href", snap.val().url);
+
+    displayUrl.append(displayTitle, displayPoster, displayDescription, displayTime);
+    display.append(displayUrl);
 })
 
 
