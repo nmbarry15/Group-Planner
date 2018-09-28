@@ -8,33 +8,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAxAKCUoVsIwle4B3Ot1Kx4rmv-XelD0OE",
-    authDomain: "group-planner-93fd0.firebaseapp.com",
-    databaseURL: "https://group-planner-93fd0.firebaseio.com",
-    projectId: "group-planner-93fd0",
-    storageBucket: "group-planner-93fd0.appspot.com",
-    messagingSenderId: "289913769436"
-  };
-  firebase.initializeApp(config);
-</script>
-    <script src="main.js"></script>
-  <script src="api.js"></script>
-  <script src="firebase.js"></script>
-   
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  
-    <script>jQuery.ajaxPrefilter(function(options) {
-        if (options.crossDomain && jQuery.support.cors) {
-            options.url = 'http://uncc-cors-proxy.herokuapp.com/' + options.url;
-        }
-      });</script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAxAKCUoVsIwle4B3Ot1Kx4rmv-XelD0OE",
+            authDomain: "group-planner-93fd0.firebaseapp.com",
+            databaseURL: "https://group-planner-93fd0.firebaseio.com",
+            projectId: "group-planner-93fd0",
+            storageBucket: "group-planner-93fd0.appspot.com",
+            messagingSenderId: "289913769436"
+        };
+        firebase.initializeApp(config);
+    </script>
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+
+
+    <script>jQuery.ajaxPrefilter(function (options) {
+            if (options.crossDomain && jQuery.support.cors) {
+                options.url = 'http://uncc-cors-proxy.herokuapp.com/' + options.url;
+            }
+        });</script>
 </head>
 
 <body>
@@ -65,18 +65,20 @@
                 <form>
                     <div class="field">
                         <label class="label">Location</label>
-                        <input type="text" class="input is-success" id="location" placeholder="New York">
+                        <input type="text" class="input is-success" id="locationz" placeholder="New York">
                     </div>
                     <div class="field">
                         <label class="label">Arriving Date</label>
-                        <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25" min="2018-01-01" max="2020-12-31">
+                        <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25"
+                            min="2018-01-01" max="2020-12-31">
                     </div>
                     <div class="field">
                         <label class="label">Leaving Date</label>
-                        <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30" min="2018-01-01" max="2020-12-31">
+                        <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30"
+                            min="2018-01-01" max="2020-12-31">
                     </div>
                     <br>
-                    <input type="submit" value="Submit" class="button is-primary is-medium" id="submit-btn">
+                    <input type="text" value="Submit" class="button is-primary is-medium" id="submit-btn">
                 </form>
             </div>
         </article>
@@ -86,7 +88,7 @@
             </div>
             <div class="message-body">
                 <div id="eventHolder">
-                    
+
                 </div>
             </div>
         </article>
@@ -106,5 +108,5 @@
     <script src="firebase.js"></script>
     <script src="main.js"></script>
 </body>
-</html>
 
+</html>
