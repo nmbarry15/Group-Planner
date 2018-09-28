@@ -19,20 +19,21 @@ function apiCall(one, two) {
 
     }).then(function (response) {
         if (two === "event") {
+            console.log("event inside")
             response = JSON.parse(response)
             console.log(response.events.event[1].start_time)
             var ePhoto
             for (let j = 0; j < 5; j++) {
-                if (response.events.event[j].image !=="null"){
-                    console.log(response.events.event[j].image)
-                    ePhoto = response.events.event[j].image.thumb.url
-                }
-                else{
-                    ePhoto = "No Image"
-                }
+                // if (response.events.event[j].image !=="null"){
+                //     console.log(response.events.event[j].image)
+                //     ePhoto = response.events.event[j].image.thumb.url
+                // }
+                // else{
+                //     ePhoto = "No Image"
+                // }
                 eventStuff ={
                     title: response.events.event[j].title,
-                    poster: ePhoto,
+                   // poster: ePhoto,
                     description: response.events.event[j].description,
                     time: response.events.event[j].start_time,
                     url: response.events.event[j].url
@@ -44,7 +45,7 @@ function apiCall(one, two) {
             currentLocations = response.city
             currentLocations = sParameter = encodeURIComponent(currentLocations.trim()) // changes spaces to %20
             console.log("location:" + currentLocations)
-            apiCall(currentLocations + "&within=25&page_number=1&page_size=6&sort_order=popularity&date=" + dateR, "event")
+            document.getElementById("locationz").defaultValue = currentLocations;
         }
     })
 }

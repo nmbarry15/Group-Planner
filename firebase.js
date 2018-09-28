@@ -1,4 +1,4 @@
-// SIMULATED PLACEHOLDER API RETURNS
+//SIMULATED PLACEHOLDER API RETURNS
 var eventTitle = "Test Title";
 var eventPoster = "http://d1marr3m5x4iac.cloudfront.net/images/thumb/I0-001/041/067/406-9.jpeg_/indecision-live-music-yard-06.jpeg";
 var eventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae sollicitudin metus. Etiam imperdiet accumsan sem, vel dictum elit porta eget. Praesent varius eros in odio molestie, eget rutrum dui.";
@@ -18,18 +18,9 @@ var placeholderEventObject = {
     url: eventUrl
 }
 
-plansDirectory.push(placeholderEventObject)
+ plansDirectory.push(placeholderEventObject)
 
 plansDirectory.on("child_added", function (snap) {
-
-    //console.log(snap.val());
-    // console.log(snap.val().title);
-    // console.log(snap.val().poster);
-    // console.log(snap.val().description);
-    // console.log(snap.val().time);
-    // console.log(snap.val().url);
-
-    var display = $("#eventHolder");
 
     var displayTitle = $("<p>").text(snap.val().title);
     var displayPoster = $("<img>").attr("src", snap.val().poster);
@@ -38,7 +29,7 @@ plansDirectory.on("child_added", function (snap) {
     var displayUrl = $("<a>").attr("href", snap.val().url);
 
     displayUrl.append(displayTitle, displayPoster, displayDescription, displayTime);
-    display.append(displayUrl);
+    //display.append(displayUrl);
 })
 
 
