@@ -11,3 +11,55 @@
     position: relative;
     right:25px;
 }
+
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+#container {
+    min-height:100%;
+    position:relative;
+ }
+ #header {
+    padding:10px;
+ }
+ #body {
+    padding:10px;
+    padding-bottom:120.53px;   /* Height of the footer */
+ }
+ #page-footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:120.53px;   /* Height of the footer */
+ }
+
+ 
+@media (max-width: 620px) {
+    #page-footer {
+      height:144px;
+    }
+  }
+
+@media (max-width: 350px) {
+    #page-footer {
+      height:168px;
+    }
+  }
+  
+@media (max-width: 620px) {
+    #body { 
+        padding-bottom:144px; 
+    }
+  }
+
+@media (max-width: 350) {
+    #body { 
+        padding-bottom:168px; 
+    }
+  }
+
+  /* 120.53, 144, 168*/

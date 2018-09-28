@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
@@ -24,10 +24,8 @@
         };
         firebase.initializeApp(config);
     </script>
-<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
 
     <script>jQuery.ajaxPrefilter(function (options) {
@@ -38,72 +36,75 @@ crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <section class="hero is-primary">
-        <div class="container">
-            <div class="hero-body">
-                <h1 class="title is-1">Weekend Event Planner</h1>
-                <h2 class="subtitle">Planned and Prepared.</h2>
-            </div>
-            <div class="hero-foot">
-                <div class="columns">
-                    <div class="column" id="new-plan-button-div">
-                        <div class="level-right"> <a href="" class="button is-primary is-inverted is-large" id="new-plan-button"><i
-                                    class="fa fa-plus" aria-hidden="true"></i>&nbsp; New Plan</a>
+    <div id="container">
+        <section class="hero is-primary">
+            <div class="container">
+                <div class="hero-body">
+                    <h1 class="title is-1">Weekend Event Planner</h1>
+                    <h2 class="subtitle">Planned and Prepared.</h2>
+                </div>
+                <div class="hero-foot">
+                    <div class="columns">
+                        <div class="column" id="new-plan-button-div">
+                            <div class="level-right"> <a href="" class="button is-primary is-inverted is-large" id="new-plan-button"><i
+                                        class="fa fa-plus" aria-hidden="true"></i>&nbsp; New Plan</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <br>
-    <div class="container">
-        <article class="message is-primary">
-            <div class="message-header">
-                <p>Destination and Dates</p>
-            </div>
-            <div class="message-body">
-                <form>
-                    <div class="field">
-                        <label class="label">Location</label>
-                        <input type="text" class="input is-success" id="locationz" placeholder="New York">
+        </section>
+        <br>
+        <div id="body">
+            <div class="container">
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <p>Destination and Dates</p>
                     </div>
-                    <div class="field">
-                        <label class="label">Arriving Date</label>
-                        <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25"
-                            min="2018-01-01" max="2020-12-31">
+                    <div class="message-body">
+                        <form>
+                            <div class="field">
+                                <label class="label">Location</label>
+                                <input type="text" class="input is-success" id="locationz" placeholder="New York">
+                            </div>
+                            <div class="field">
+                                <label class="label">Arriving Date</label>
+                                <input type="date" class="input is-success date" id="start-date" name="trip" value="2018-09-25"
+                                    min="2018-01-01" max="2020-12-31">
+                            </div>
+                            <div class="field">
+                                <label class="label">Leaving Date</label>
+                                <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30"
+                                    min="2018-01-01" max="2020-12-31">
+                            </div>
+                            <br>
+                            <input type="submit" value="Submit" class="button is-primary is-medium" id="submit-btn">
+                        </form>
                     </div>
-                    <div class="field">
-                        <label class="label">Leaving Date</label>
-                        <input type="date" class="input is-success date" id="end-date" name="trip" value="2018-09-30"
-                            min="2018-01-01" max="2020-12-31">
+                </article>
+                <article class="message is-primary">
+                    <div class="message-header">
+                        <p>Things to Do</p>
                     </div>
-                    <br>
-                    <input type="text" value="Submit" class="button is-primary is-medium" id="submit-btn">
-                </form>
-            </div>
-        </article>
-        <article class="message is-primary">
-            <div class="message-header">
-                <p>Things to Do</p>
-            </div>
-            <div class="message-body">
-                <div id="eventHolder">
+                    <div class="message-body">
+                        <div id="eventHolder">
 
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+        <br>
+        <section class="hero is-primary" id="page-footer">
+            <div class="hero-body">
+                <div class="container">
+                    <h2 class="has-text-centered" id="developed-by">Developed By Max Allee, Nicole Barry, Christian Brooks, and
+                        Jeremiah Schmutz</h2>
                 </div>
             </div>
-        </article>
-
+        </section>
     </div>
-    <br>
-    <section class="hero is-primary" id="page-footer">
-        <div class="hero-body">
-            <div class="container">
-                <h2 class="subtitle has-text-centered">Developed By Max Allee, Nicole Barry, Christian Brooks, and
-                    Jeremiah Schmutz</h2>
-            </div>
-        </div>
-    </section>
-
     <script src="api.js"></script>
     <script src="firebase.js"></script>
     <script src="main.js"></script>
