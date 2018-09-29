@@ -17,9 +17,6 @@ $("#submit-btn").on("click", function (event) {
     if ($("#music-check").prop( "checked" )){
         eventParameters.push("music");
     }
-    if ($("#nightlife-check").prop( "checked" )){
-        eventParameters.push("nightlife");
-    }
     console.log(eventParameters);
   
     locationz= sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
@@ -28,6 +25,25 @@ $("#submit-btn").on("click", function (event) {
     apiCall( holdIt, "event")
 });
 
+// opening the view plans modal
+$("#view-plans-button").on("click", function (event) {
+    event.preventDefault();
+    $("#view-plans-modal").addClass("is-active")
+})
 
+// closing the view plans modal by the cancel button
+$("#view-plans-cancel-button").on("click", function (event) {
+    event.preventDefault();
+    $("#view-plans-modal").removeClass("is-active")
+})
 
+// closing the view plans modal by the x
+$("#view-plans-x").on("click", function (event) {
+    event.preventDefault();
+    $("#view-plans-modal").removeClass("is-active")
+})
 
+$("#view-plans-button").on("click", function (event) {
+    event.preventDefault();
+    $("#view-plans-modal").addClass("is-active")
+})

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Group Event Planner</title>
+    <title>Choose Events: Group Event Planner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
@@ -56,49 +56,15 @@
         </section>
         <div id="body">
             <div class="container">
+
                 <article class="message is-dark">
                     <div class="message-header">
-                        <p>Make A New Plan</p>
+                        <p>Things to Do</p>
                     </div>
                     <div class="message-body">
-                        <form>
-                            <div class="field">
-                                <label class="label">Location</label>
-                                <input type="text" class="input is-dark" id="locationz" placeholder="New York">
-                            </div>
-                            <div class="columns">
-                                <div class="column is-half">
-                                    <div class="field">
-                                        <label class="label">Arriving Date</label>
-                                        <input type="date" class="input is-dark date" id="start-date" name="trip" value="2018-09-25"
-                                            min="2018-01-01" max="2020-12-31">
-                                    </div>
-                                </div>
-                                <div class="column is-half">
-                                    <div class="field">
-                                        <label class="label">Leaving Date</label>
-                                        <input type="date" class="input is-dark date" id="end-date" name="trip" value="2018-09-30"
-                                            min="2018-01-01" max="2020-12-31">
-                                    </div>
-                                </div>
-                            </div>
-                            <label class="label">What kind of events interest your group?</label>
-                            <label class="check-container">Outdoor
-                                <input type="checkbox" id="outdoor-check" checked>
-                                <span class="checkmark"></span>
-                            </label>
+                        <div id="eventHolder">
 
-                            <label class="check-container">Sports
-                                <input type="checkbox" id="sports-check" checked>
-                                <span class="checkmark"></span>
-                            </label>
-
-                            <label class="check-container">Music
-                                <input type="checkbox" id="music-check" checked>
-                                <span class="checkmark"></span>
-                            </label>
-                            <input type="submit" value="Submit" class="button is-dark is-medium" id="submit-btn">
-                        </form>
+                        </div>
                     </div>
                 </article>
 
@@ -117,20 +83,20 @@
                                     <input type="text" class="input is-dark" id="plan-key" placeholder="PlanKeyHere">
                                 </div>
                                 <div class="field">
-                                    <label class="label">Your Name:</label>
-                                    <input type="text" class="input is-dark" id="username" placeholder="This is how your group will identify you">
-                                </div>
+                                        <label class="label">Your Name:</label>
+                                        <input type="text" class="input is-dark" id="username" placeholder="How your group will identify you">
+                                    </div>
                             </form>
                         </section>
                         <footer class="modal-card-foot">
                             <form>
-                                <input type="submit" value="View Plan" class="button is-dark is-medium" id="view-plans-submit
-                                -button">
+                                <input type="submit" value="View Plan" class="button is-dark is-medium">
                                 <input type="submit" value="Cancel" class="button is-medium" id="view-plans-cancel-button">
                             </form>
                         </footer>
                     </div>
                 </div>
+
             </div>
         </div>
         <br>
