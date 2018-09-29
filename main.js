@@ -5,6 +5,8 @@ $("#submit-btn").on("click", function (event) {
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
+
+    initializeGroupKey();
   
      eventParameters = [];
 
@@ -23,7 +25,7 @@ $("#submit-btn").on("click", function (event) {
     var dateTime = moment(startDate).format("YYYYMMDD")+"00-"+ moment(endDate).format("YYYYMMDD")+"00"
     var holdIt=locationz + "&date=" + dateTime
     apiCall( holdIt, "event")
-});
+})
 
 // opening the view plans modal
 $("#view-plans-button").on("click", function (event) {

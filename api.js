@@ -8,7 +8,7 @@ var eventType = {
     music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity&date="
 }
 var cat = []
-function api(one, two) {
+function api(one, two, three) {
     // We then created an AJAX call
     var term = one
 
@@ -40,11 +40,11 @@ function api(one, two) {
                     description: response.events.event[j].description,
                     time: response.events.event[j].start_time,
                     url: response.events.event[j].url,
-                    category: blah
+                    category: three
                 }
                 cat.push(eventStuff)
             }
-            console.log(cat)
+            pushApiData(cat);
         }
         else if (two === "geo") {
             currentLocations = response.city
@@ -57,8 +57,9 @@ api("", "geo")
 function apiCall(one, two) {
     for (let index = 0; index < eventParameters.length; index++) {
         blah = eventParameters[index]
+        console.log(blah)
         var eventpiece = eventType[blah]
         var full = one + eventpiece
-        api(full, "event")
+        api(full, "event", blah)
     }
 }
