@@ -1,7 +1,14 @@
 var currentLocations
+var blah
 var eventStuff = {}
-var dateR = "2018092800-2018093000"
-function apiCall(one, two) {
+dateTime = "2018092800-2018093000"
+var eventType = {
+    outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
+    sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
+    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity&date="
+}
+var cat = []
+function api(one, two) {
     // We then created an AJAX call
     var term = one
 
@@ -12,45 +19,53 @@ function apiCall(one, two) {
     }
 
     queryURL = qURL[two]
-    console.log(queryURL)
     $.ajax({
         url: queryURL,
         method: "GET"
 
     }).then(function (response) {
         if (two === "event") {
-            console.log("event inside")
             response = JSON.parse(response)
-            console.log(response.events.event[1].start_time)
             var ePhoto
-            for (let j = 0; j < 5; j++) {
-                if (response.events.event[j].image !==null){
-                    console.log(response.events.event[j].image)
+            for (let j = 0; j < 6; j++) {
+                if (response.events.event[j].image !== null) {
                     ePhoto = response.events.event[j].image.thumb.url
                 }
-                else{
+                else {
                     ePhoto = "https://www.fillmurray.com/50/50"
                 }
-                eventStuff ={
+                eventStuff = {
                     title: response.events.event[j].title,
                     poster: ePhoto,
                     description: response.events.event[j].description,
                     time: response.events.event[j].start_time,
-                    url: response.events.event[j].url
+                    url: response.events.event[j].url,
+                    category: blah
                 }
-                plansDirectory.push(eventStuff)
+                cat.push(eventStuff)
             }
+            console.log(cat)
         }
         else if (two === "geo") {
             currentLocations = response.city
             document.getElementById("locationz").defaultValue = currentLocations;
-            //$(".locationz").prev('input').val(response.city);
-            
         }
     })
 }
 
+<<<<<<< HEAD
 apiCall("", "geo")
 //apiCall("where=28202&within=25","event" )
 
 
+=======
+api("", "geo")
+function apiCall(one, two) {
+    for (let index = 0; index < eventParameters.length; index++) {
+        blah = eventParameters[index]
+        var eventpiece = eventType[blah]
+        var full = one + eventpiece
+        api(full, "event")
+    }
+}
+>>>>>>> 66331ef3a145129ae7d095cf8ed6eeeb5216115e

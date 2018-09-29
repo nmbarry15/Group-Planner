@@ -1,14 +1,15 @@
 //take info from form and make variables on click
+var eventParameters
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
   
-    var eventParameters = [];
+     eventParameters = [];
 
     if ($("#outdoor-check").prop( "checked" )){
-        eventParameters.push("outdoor");
+        eventParameters.push("outdoors");
     }
     if ($("#sports-check").prop( "checked" )){
         eventParameters.push("sports");
@@ -23,7 +24,10 @@ $("#submit-btn").on("click", function (event) {
   
     locationz= sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
     var dateTime = moment(startDate).format("YYYYMMDD")+"00-"+ moment(endDate).format("YYYYMMDD")+"00"
-    console.log(locationz)
-
-    apiCall(locationz + "&within=25&page_number=1&page_size=6&sort_order=popularity&date=" + dateTime, "event")
+    var holdIt=locationz + "&date=" + dateTime
+    apiCall( holdIt, "event")
 });
+
+
+
+
