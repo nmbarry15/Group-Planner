@@ -44,7 +44,7 @@ function api(one, two) {
                 }
                 cat.push(eventStuff)
             }
-            console.log(cat)
+            pushApiData(cat);
         }
         else if (two === "geo") {
             currentLocations = response.city
@@ -53,12 +53,6 @@ function api(one, two) {
     })
 }
 
-<<<<<<< HEAD
-apiCall("", "geo")
-//apiCall("where=28202&within=25","event" )
-
-
-=======
 api("", "geo")
 function apiCall(one, two) {
     for (let index = 0; index < eventParameters.length; index++) {
@@ -68,4 +62,3 @@ function apiCall(one, two) {
         api(full, "event")
     }
 }
->>>>>>> 66331ef3a145129ae7d095cf8ed6eeeb5216115e
