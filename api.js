@@ -44,7 +44,7 @@ function api(one, two, three) {
                 }
                 cat.push(eventStuff)
             }
-            console.log(cat)
+            pushApiData(cat);
         }
         else if (two === "geo") {
             currentLocations = response.city
