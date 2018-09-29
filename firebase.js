@@ -4,6 +4,7 @@ var groupKey;
 var eventsRef;
 
 // Initialize Group Directory
+// This function is called in main.js on the submit button.
 function initializeGroupKey() {
     var groupSetup = {
         apiData: null,
@@ -21,15 +22,20 @@ function initializeGroupKey() {
     }) 
 }
 
+// This pushes data to database, and the one input would be the "cat" array in the instance of api.js line 47.
 function pushApiData(data) {
     console.log("This is the key being used to push: " + localStorage.getItem("groupKey"));
     eventsRef.set(data);
     console.log("Events have been pushed to database.")
 }
 
+// This function can be used to construct DOM elements with returned data. The "category" input takes one word string element associated with category you'd like to return.
+// ie: "sport", "music", "outdoors"
 function returnEvents(category) {
     eventsRef.orderByChild("category").equalTo(category).on("child_added", function(snap) {
         console.log("--LOOPING CURRENT CHILD--")
         console.log(snap.val());
+        // IN THIS INSTANCE YOU WOULD USE SNAP FOR EACH EVENT YOUR GOING TO RETURN AND THEN WRITE JQUERY HTML CONSTRUCTORS HERE
+        // THEN APPEND YOUR NEW ELEMENTS TO DISPLAY DIV FOR EACH CATEGORY.
     });
 }
