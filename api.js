@@ -24,16 +24,16 @@ function apiCall(one, two) {
             console.log(response.events.event[1].start_time)
             var ePhoto
             for (let j = 0; j < 5; j++) {
-                // if (response.events.event[j].image !=="null"){
-                //     console.log(response.events.event[j].image)
-                //     ePhoto = response.events.event[j].image.thumb.url
-                // }
-                // else{
-                //     ePhoto = "No Image"
-                // }
+                if (response.events.event[j].image !==null){
+                    console.log(response.events.event[j].image)
+                    ePhoto = response.events.event[j].image.thumb.url
+                }
+                else{
+                    ePhoto = "https://www.fillmurray.com/50/50"
+                }
                 eventStuff ={
                     title: response.events.event[j].title,
-                   // poster: ePhoto,
+                    poster: ePhoto,
                     description: response.events.event[j].description,
                     time: response.events.event[j].start_time,
                     url: response.events.event[j].url
@@ -43,9 +43,9 @@ function apiCall(one, two) {
         }
         else if (two === "geo") {
             currentLocations = response.city
-            currentLocations = sParameter = encodeURIComponent(currentLocations.trim()) // changes spaces to %20
-            console.log("location:" + currentLocations)
             document.getElementById("locationz").defaultValue = currentLocations;
+            //$(".locationz").prev('input').val(response.city);
+            
         }
     })
 }

@@ -4,6 +4,7 @@ $("#submit-btn").on("click", function (event) {
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
+  
     var eventParameters = [];
 
     if ($("#outdoor-check").prop( "checked" )){
@@ -19,8 +20,10 @@ $("#submit-btn").on("click", function (event) {
         eventParameters.push("nightlife");
     }
     console.log(eventParameters);
-    
+  
+    locationz= sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
     var dateTime = moment(startDate).format("YYYYMMDD")+"00-"+ moment(endDate).format("YYYYMMDD")+"00"
-    // console.log(dateTime)
+    console.log(locationz)
+
     apiCall(locationz + "&within=25&page_number=1&page_size=6&sort_order=popularity&date=" + dateTime, "event")
 });
