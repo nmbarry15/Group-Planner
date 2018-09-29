@@ -1,7 +1,14 @@
 var currentLocations
+var catagories = ["sports", "outdoors"]
 var eventStuff = {}
-var dateR = "2018092800-2018093000"
-function apiCall(one, two) {
+dateTime = "2018092800-2018093000"
+var eventType = {
+    outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
+    sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
+    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity&date="
+}
+var cat=[]
+function api(one,two) {
     // We then created an AJAX call
     var term = one
 
@@ -38,8 +45,9 @@ function apiCall(one, two) {
                     time: response.events.event[j].start_time,
                     url: response.events.event[j].url
                 }
-                plansDirectory.push(eventStuff)
+                cat.push(eventStuff)
             }
+            console.log(cat)
         }
         else if (two === "geo") {
             currentLocations = response.city
@@ -50,5 +58,13 @@ function apiCall(one, two) {
     })
 }
 
-apiCall("", "geo")
-//apiCall("where=28202&within=25","event" )
+api("", "geo")
+function apiCall(one,two){
+  for (let index = 0; index < catagories.length; index++) {
+      var blah = catagories[index]
+     var eventpiece = eventType[blah]
+     var full= two + eventpiece + one
+    api(full,"event")
+  }
+}
+apiCall(dateTime, "charlotte")
