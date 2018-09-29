@@ -1,5 +1,5 @@
 var currentLocations
-var catagories = ["sports", "outdoors"]
+var blah
 var eventStuff = {}
 dateTime = "2018092800-2018093000"
 var eventType = {
@@ -7,8 +7,8 @@ var eventType = {
     sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
     music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity&date="
 }
-var cat=[]
-function api(one,two) {
+var cat = []
+function api(one, two) {
     // We then created an AJAX call
     var term = one
 
@@ -19,31 +19,28 @@ function api(one,two) {
     }
 
     queryURL = qURL[two]
-    console.log(queryURL)
     $.ajax({
         url: queryURL,
         method: "GET"
 
     }).then(function (response) {
         if (two === "event") {
-            console.log("event inside")
             response = JSON.parse(response)
-            console.log(response.events.event[1].start_time)
             var ePhoto
-            for (let j = 0; j < 5; j++) {
-                if (response.events.event[j].image !==null){
-                    console.log(response.events.event[j].image)
+            for (let j = 0; j < 6; j++) {
+                if (response.events.event[j].image !== null) {
                     ePhoto = response.events.event[j].image.thumb.url
                 }
-                else{
+                else {
                     ePhoto = "https://www.fillmurray.com/50/50"
                 }
-                eventStuff ={
+                eventStuff = {
                     title: response.events.event[j].title,
                     poster: ePhoto,
                     description: response.events.event[j].description,
                     time: response.events.event[j].start_time,
-                    url: response.events.event[j].url
+                    url: response.events.event[j].url,
+                    category: blah
                 }
                 cat.push(eventStuff)
             }
@@ -52,19 +49,16 @@ function api(one,two) {
         else if (two === "geo") {
             currentLocations = response.city
             document.getElementById("locationz").defaultValue = currentLocations;
-            //$(".locationz").prev('input').val(response.city);
-            
         }
     })
 }
 
 api("", "geo")
-function apiCall(one,two){
-  for (let index = 0; index < catagories.length; index++) {
-      var blah = catagories[index]
-     var eventpiece = eventType[blah]
-     var full= two + eventpiece + one
-    api(full,"event")
-  }
+function apiCall(one, two) {
+    for (let index = 0; index < eventParameters.length; index++) {
+        blah = eventParameters[index]
+        var eventpiece = eventType[blah]
+        var full = one + eventpiece
+        api(full, "event")
+    }
 }
-apiCall(dateTime, "charlotte")
