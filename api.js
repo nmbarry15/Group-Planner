@@ -63,3 +63,21 @@ function apiCall(one, two) {
         api(full, "event", blah)
     }
 }
+// email stuff below
+var templateParams
+function emailSend(){
+var gName = $("#screen-name").val()
+var intName =localStorage.getItem("groupKey")
+var emailAdds = emails.join(", ");
+ templateParams = {
+    from_name: gName,
+    key: intName,
+    toEmail: emailAdds,
+};
+emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
+    console.log('SUCCESS!', response.status, response.text);
+}, function (error) {
+    console.log('FAILED...', error);
+});
+}
+emailSend()
