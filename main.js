@@ -1,18 +1,13 @@
 //take info from form and make variables on click
 var eventParameters
+var emails = []
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
 
-    initializeGroupKey();
-  
-    // opening the send plans modal
-    $("#send-plans-modal").addClass("is-active")
-
-
-     eventParameters = [];
+    eventParameters = [];
 
     if ($("#outdoor-check").prop( "checked" )){
         eventParameters.push("outdoors");
@@ -23,13 +18,21 @@ $("#submit-btn").on("click", function (event) {
     if ($("#music-check").prop( "checked" )){
         eventParameters.push("music");
     }
-    console.log(eventParameters);
+console.log(eventParameters)
+    if((locationz==="")||(startDate==="")||(endDate==="")||(eventParameters.length===0)){
+        alert("please fill in all fields and check at least one box.")
+    } else {
+    initializeGroupKey();
+  
+    // opening the send plans modal
+    $("#send-plans-modal").addClass("is-active")
+
   
     locationz= sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
     var dateTime = moment(startDate).format("YYYYMMDD")+"00-"+ moment(endDate).format("YYYYMMDD")+"00"
     var holdIt=locationz + "&date=" + dateTime
     apiCall( holdIt, "event")
-})
+}})
 
 // opening the view plans modal
 $("#view-plans-button").on("click", function (event) {
@@ -72,6 +75,14 @@ $("#send-plans-send-button").on("click", function (event) {
     var screenName= $("#screen-name").val()
     var groupName= $("#group-name").val()
     localStorage.setItem("username", screenName);
+    for (i=0; i<11; i++){
+        var email = $("#email"+i).val().trim()
+        if (email !== ""){
+            emails.push(email)
+            console.log(emails)
+        }
+    }
+    emailSend()
     // store group name locally, in firebase, or both?
     //store event key locally, in firebase, or both?
     window.location = "planner.html"
@@ -86,3 +97,6 @@ $("#view-plans-submit-button").on("click", function (event) {
     //store event key locally, in firebase, or both?
     window.location = "planner.html"
 })
+console.log($("#outdoor-check").hasOwnProperty( "checked" ))
+console.log($("#sports-check").hasOwnProperty( "checked" ))
+console.log($("#music-check").hasOwnProperty( "checked" ))
