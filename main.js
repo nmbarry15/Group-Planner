@@ -82,8 +82,13 @@ $("#send-plans-x").on("click", function (event) {
 // send plans button storing info and redirecting
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
-    screenName = $("#screen-name").val()
-    groupName = $("#group-name").val()
+    if(($("#email0").val().trim()==="")||($("#group-name").val().trim()==="")||($("#screen-name").val().trim()==="")){
+        console.log("HAAAAAAAAAAAY")
+        $("#no-sir").remove();
+        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
+    } else{
+    var screenName= $("#screen-name").val()
+    var groupName= $("#group-name").val()
     localStorage.setItem("username", screenName);
     for (i = 0; i < 11; i++) {
         var email = $("#email" + i).val().trim()
@@ -95,8 +100,8 @@ $("#send-plans-send-button").on("click", function (event) {
     emailSend()
     // store group name locally, in firebase, or both?
     //store event key locally, in firebase, or both?
-      window.location = "planner.html"
-})
+    window.location = "planner.html"
+}})
 
 // view plans button storing info and redirecting
 $("#view-plans-submit-button").on("click", function (event) {
