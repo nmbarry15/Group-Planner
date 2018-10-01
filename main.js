@@ -106,3 +106,12 @@ $("#view-plans-submit-button").on("click", function (event) {
         $("#nope").remove();
         $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')}
 })
+
+// chat
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+}
