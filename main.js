@@ -1,21 +1,26 @@
 //take info from form and make variables on click
-var eventParameters= [];
-var emails = [];
+var eventParameters
+var emails = []
+var screenName
+var groupName
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
 
-    if ($("#outdoor-check").prop( "checked" )){
+    eventParameters = [];
+
+    if ($("#outdoor-check").prop("checked")) {
         eventParameters.push("outdoors");
     }
-    if ($("#sports-check").prop( "checked" )){
+    if ($("#sports-check").prop("checked")) {
         eventParameters.push("sports");
     }
-    if ($("#music-check").prop( "checked" )){
+    if ($("#music-check").prop("checked")) {
         eventParameters.push("music");
     }
+
 console.log(eventParameters)
     if((locationz==="")||(startDate==="")||(endDate==="")||(eventParameters.length===0)){
         $("#NO").remove();
@@ -27,23 +32,28 @@ console.log(eventParameters)
     // opening the send plans modal
     $("#send-plans-modal").addClass("is-active")
 
-  
-    locationz= sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
-    var dateTime = moment(startDate).format("YYYYMMDD")+"00-"+ moment(endDate).format("YYYYMMDD")+"00"
-    var holdIt=locationz + "&date=" + dateTime
-    apiCall( holdIt, "event")
-}})
+
+        // opening the send plans modal
+        $("#send-plans-modal").addClass("is-active")
+
+
+        locationz = sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
+        var dateTime = moment(startDate).format("YYYYMMDD") + "00-" + moment(endDate).format("YYYYMMDD") + "00"
+        var holdIt = locationz + "&date=" + dateTime
+        apiCall(holdIt, "event")
+    }
+})
 
 // opening the view plans modal
 $("#view-plans-button").on("click", function (event) {
     event.preventDefault();
     $("#view-plans-modal").addClass("is-active")
-    if (localStorage.hasOwnProperty('username')){
+    if (localStorage.hasOwnProperty('username')) {
         $("#username").val(localStorage.getItem("username"))
-    }  
-    if (localStorage.hasOwnProperty('groupKey')){
+    }
+    if (localStorage.hasOwnProperty('groupKey')) {
         $("#plan-key").val(localStorage.getItem("groupKey"));
-        }
+    }
 })
 
 // closing the view plans modal by the cancel button
@@ -80,9 +90,9 @@ $("#send-plans-send-button").on("click", function (event) {
     var screenName= $("#screen-name").val()
     var groupName= $("#group-name").val()
     localStorage.setItem("username", screenName);
-    for (i=0; i<11; i++){
-        var email = $("#email"+i).val().trim()
-        if (email !== ""){
+    for (i = 0; i < 11; i++) {
+        var email = $("#email" + i).val().trim()
+        if (email !== "") {
             emails.push(email)
             console.log(emails)
         }
