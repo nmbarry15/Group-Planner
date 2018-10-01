@@ -1,5 +1,5 @@
 //take info from form and make variables on click
-var eventParameters= [];
+var eventParameters= ["popular"];
 var emails = [];
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
@@ -17,10 +17,10 @@ $("#submit-btn").on("click", function (event) {
         eventParameters.push("music");
     }
 console.log(eventParameters)
-    if((locationz==="")||(startDate==="")||(endDate==="")||(eventParameters.length===0)){
+    if((locationz==="")||(startDate==="")||(endDate==="")){
         $("#NO").remove();
-        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields and check at least one box.</h1>')
-        eventParameters=[];
+        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields.</h1>')
+        eventParameters=["popular"];
     } else {
     initializeGroupKey();
     
