@@ -1,11 +1,10 @@
 var currentLocations
-var blah
+var dataHolder
 var eventStuff = {}
-dateTime = "2018092800-2018093000"
 var eventType = {
-    outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
-    sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity&date=",
-    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity&date="
+    outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity",
+    sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity",
+    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity"
 }
 var cat = []
 function api(one, two, three) {
@@ -19,6 +18,7 @@ function api(one, two, three) {
     }
 
     queryURL = qURL[two]
+    console.log(queryURL)
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -28,12 +28,12 @@ function api(one, two, three) {
             response = JSON.parse(response)
             var ePhoto
             for (let j = 0; j < 6; j++) {
-                if (response.events.event[j].image !== null) {
-                    ePhoto = response.events.event[j].image.thumb.url
-                }
-                else {
-                    ePhoto = "https://www.fillmurray.com/50/50"
-                }
+                // if (response.events.event[j].image !== null) {
+                //     ePhoto = response.events.event[j].image.thumb.url
+                // }
+                // else {
+                //     ePhoto = "http://d1marr3m5x4iac.cloudfront.net/store/skin/no_image/categories/48x48/other.jpg"
+                // }
                 eventStuff = {
                     title: response.events.event[j].title,
                     poster: ePhoto,
@@ -56,28 +56,27 @@ function api(one, two, three) {
 api("", "geo")
 function apiCall(one, two) {
     for (let index = 0; index < eventParameters.length; index++) {
-        blah = eventParameters[index]
-        console.log(blah)
-        var eventpiece = eventType[blah]
+        dataHolder = eventParameters[index]
+        var eventpiece = eventType[dataHolder]
         var full = one + eventpiece
-        api(full, "event", blah)
+        api(full, "event", dataHolder)
     }
 }
 // email stuff below
 var templateParams
-function emailSend(){
-var gName = $("#screen-name").val()
-var intName =localStorage.getItem("groupKey")
-var emailAdds = emails.join(", ");
- templateParams = {
-    from_name: gName,
-    key: intName,
-    toEmail: emailAdds,
-};
-emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
-    console.log('SUCCESS!', response.status, response.text);
-}, function (error) {
-    console.log('FAILED...', error);
-});
+function emailSend() {
+    console.log(emails)
+    var intName = localStorage.getItem("groupKey")
+    var emailAdds = emails.join(", ");
+    templateParams = {
+        from_name: screenName,
+        key: intName,
+        toEmail: emailAdds,
+    };
+    console.log(templateParams)
+    // emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
+    //     console.log('SUCCESS!', response.status, response.text);
+    // }, function (error) {
+    //     console.log('FAILED...', error);
+    // });
 }
-emailSend()

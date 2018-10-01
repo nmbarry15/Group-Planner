@@ -31,18 +31,20 @@ function pushApiData(data) {
 
 // This function can be used to construct DOM elements with returned data. The "category" input takes one word string element associated with category you'd like to return.
 // ie: "sport", "music", "outdoors"
-function returnEvents(category) {
-    eventsRef.orderByChild("category").equalTo(category).on("child_added", function(snap) {
-            console.log("--LOOPING CURRENT CHILD--")
-            console.log(snap.val());
-        // IN THIS INSTANCE YOU WOULD USE SNAP FOR EACH EVENT YOUR GOING TO RETURN AND THEN WRITE JQUERY HTML CONSTRUCTORS HERE
-        // THEN APPEND YOUR NEW ELEMENTS TO DISPLAY DIV FOR EACH CATEGORY.
-    });
-}
+
+// function returnEvents(category) {
+//     eventsRef.orderByChild("category").equalTo(category).on("child_added", function(snap) {
+//             console.log("--LOOPING CURRENT CHILD--")
+//             console.log(snap.val());
+//         // IN THIS INSTANCE YOU WOULD USE SNAP FOR EACH EVENT YOUR GOING TO RETURN AND THEN WRITE JQUERY HTML CONSTRUCTORS HERE
+//         // THEN APPEND YOUR NEW ELEMENTS TO DISPLAY DIV FOR EACH CATEGORY.
+//     });
+// }
 
 // This function can be used to set data to the currect group keys database. By default it writes,
 // directly into the push-id value directory. The first argument is taken as an object, the second,
 // is a string with the new or existing database reference you would like to write to.
+
 function setData(data, directory = "") {
     database.ref("groups/" + localStorage.getItem("groupKey") + "/" + directory).set(data);
 }
