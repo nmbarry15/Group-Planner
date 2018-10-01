@@ -1,13 +1,11 @@
 //take info from form and make variables on click
-var eventParameters
-var emails = []
+var eventParameters= [];
+var emails = [];
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
-
-    eventParameters = [];
 
     if ($("#outdoor-check").prop( "checked" )){
         eventParameters.push("outdoors");
@@ -20,10 +18,12 @@ $("#submit-btn").on("click", function (event) {
     }
 console.log(eventParameters)
     if((locationz==="")||(startDate==="")||(endDate==="")||(eventParameters.length===0)){
-        alert("please fill in all fields and check at least one box.")
+        $("#NO").remove();
+        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields and check at least one box.</h1>')
+        eventParameters=[];
     } else {
     initializeGroupKey();
-  
+    
     // opening the send plans modal
     $("#send-plans-modal").addClass("is-active")
 
@@ -91,12 +91,13 @@ $("#send-plans-send-button").on("click", function (event) {
 // view plans button storing info and redirecting
 $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
-    var screenName= $("#username").val()
+    if (($("#username").val().trim()!=="")&&($("#plan-key").val().trim()!=="")){
+    var screenName= $("#username").val().trim()
     localStorage.setItem("username", screenName);
     // store group name locally, in firebase, or both?
     //store event key locally, in firebase, or both?
     window.location = "planner.html"
+    } else {
+        $("#nope").remove();
+        $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')}
 })
-console.log($("#outdoor-check").hasOwnProperty( "checked" ))
-console.log($("#sports-check").hasOwnProperty( "checked" ))
-console.log($("#music-check").hasOwnProperty( "checked" ))
