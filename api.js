@@ -33,7 +33,7 @@ function api(one, two, three) {
                     ePhoto = response.events.event[j].image.thumb.url
                 }
                 else {
-                    ePhoto = "https://www.fillmurray.com/50/50"
+                    ePhoto = "http://d1marr3m5x4iac.cloudfront.net/store/skin/no_image/categories/48x48/other.jpg"
                 }
                 eventStuff = {
                     title: response.events.event[j].title,

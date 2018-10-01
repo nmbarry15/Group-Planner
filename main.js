@@ -98,7 +98,7 @@ $("#view-plans-submit-button").on("click", function (event) {
     localStorage.setItem("username", screenName);
     // store group name locally, in firebase, or both?
     //store event key locally, in firebase, or both?
-    window.location = "planner.html"
+   // window.location = "planner.html"
 })
 console.log($("#outdoor-check").hasOwnProperty("checked"))
 console.log($("#sports-check").hasOwnProperty("checked"))
