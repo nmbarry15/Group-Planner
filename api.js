@@ -4,7 +4,8 @@ var eventStuff = {}
 var eventType = {
     outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity",
     sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity",
-    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity"
+    music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity",
+    popular: "&within=25&page_number=1&page_size=6&sort_order=popularity"
 }
 var cat = []
 function api(one, two, three) {
@@ -49,6 +50,8 @@ function api(one, two, three) {
         else if (two === "geo") {
             currentLocations = response.city
             document.getElementById("locationz").defaultValue = currentLocations;
+            document.getElementById("start-date").defaultValue = moment().format('YYYY-MM-DD');
+            document.getElementById("end-date").defaultValue = moment().add(1, 'days').format('YYYY-MM-DD');
         }
     })
 }
