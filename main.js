@@ -1,16 +1,13 @@
 //take info from form and make variables on click
 var eventParameters
+var emails = []
+var screenName
+var groupName
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
-
-    initializeGroupKey();
-
-    // opening the send plans modal
-    $("#send-plans-modal").addClass("is-active")
-
 
     eventParameters = [];
 
@@ -23,12 +20,28 @@ $("#submit-btn").on("click", function (event) {
     if ($("#music-check").prop("checked")) {
         eventParameters.push("music");
     }
-    console.log(eventParameters);
 
-    locationz = sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
-    var dateTime = moment(startDate).format("YYYYMMDD") + "00-" + moment(endDate).format("YYYYMMDD") + "00"
-    var holdIt = locationz + "&date=" + dateTime
-    apiCall(holdIt, "event")
+    console.log(eventParameters)
+    if ((locationz === "") || (startDate === "") || (endDate === "") || (eventParameters.length === 0)) {
+        $("#NO").remove();
+        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields and check at least one box.</h1>')
+        eventParameters = [];
+    } else {
+        initializeGroupKey();
+
+        // opening the send plans modal
+        $("#send-plans-modal").addClass("is-active")
+
+
+        // opening the send plans modal
+        $("#send-plans-modal").addClass("is-active")
+
+
+        locationz = sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
+        var dateTime = moment(startDate).format("YYYYMMDD") + "00-" + moment(endDate).format("YYYYMMDD") + "00"
+        var holdIt = locationz + "&date=" + dateTime
+        apiCall(holdIt, "event")
+    }
 })
 
 // opening the view plans modal
@@ -70,23 +83,42 @@ $("#send-plans-x").on("click", function (event) {
 var groupName;
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
-    var screenName = $("#screen-name").val()
-    groupName = $("#group-name").val()
-    localStorage.setItem("username", screenName);
-    // store group name locally, in firebase, or both?
-    //store event key locally, in firebase, or both?
-    window.location = "planner.html"
-    $("#group-plans").text(groupName + " Plans");
-})
+    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
+        console.log("HAAAAAAAAAAAY")
+        $("#no-sir").remove();
+        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
+    } else {
+        var screenName = $("#screen-name").val()
+        var groupName = $("#group-name").val()
+        localStorage.setItem("username", screenName);
+        for (i = 0; i < 11; i++) {
+            var email = $("#email" + i).val().trim()
+            if (email !== "") {
+                emails.push(email)
+                console.log(emails)
+            }
+        }
+        emailSend()
+        // store group name locally, in firebase, or both?
+        //store event key locally, in firebase, or both?
+        window.location = "planner.html"
+        $("#group-plans").text(groupName + " Plans");
+    }
+});
 
 // view plans button storing info and redirecting
 $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
-    var screenName = $("#username").val()
-    localStorage.setItem("username", screenName);
-    // store group name locally, in firebase, or both?
-    //store event key locally, in firebase, or both?
-    window.location = "planner.html"
+    if (($("#username").val().trim() !== "") && ($("#plan-key").val().trim() !== "")) {
+        var screenName = $("#username").val().trim()
+        localStorage.setItem("username", screenName);
+        // store group name locally, in firebase, or both?
+        //store event key locally, in firebase, or both?
+        window.location = "planner.html"
+    } else {
+        $("#nope").remove();
+        $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')
+    }
 })
 
 //add firebase data to planner.html
@@ -246,3 +278,11 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
 
 });
 
+// chat
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+}

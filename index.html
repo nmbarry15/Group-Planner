@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Group Event Planner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.2.4/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_tkXCxkxhPEYUir7Tfo0zK");
+       })();
+    </script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
@@ -30,13 +36,15 @@
 
     <script>jQuery.ajaxPrefilter(function (options) {
             if (options.crossDomain && jQuery.support.cors) {
-                options.url = 'http://uncc-cors-proxy.herokuapp.com/' + options.url;
+                options.url = 'https://uncc-cors-proxy.herokuapp.com/' + options.url;
             }
         });</script>
 </head>
 
 <body>
+    <!-- container that holds everything  -->
     <div id="container">
+        <!-- header -->
         <section class="hero is-dark">
             <div class="container">
                 <div class="hero-body" id="top-hero-body">
@@ -44,7 +52,6 @@
                     <h2 class="subtitle">Planned and Prepared.</h2>
                 </div>
                 <div class="hero-foot">
-
                     <div class="columns" id="top-columns">
                         <div class="column" id="view-plans-button-div">
                             <div class="level-right"> <a href="" class="button is-dark is-inverted is-large" id="view-plans-button">View
@@ -59,9 +66,9 @@
             <div class="container">
                 <article class="message is-dark">
                     <div class="message-header">
-                        <p>Destination and Dates</p>
+                        <p>Destination, Dates, and Interests</p>
                     </div>
-                    <div class="message-body">
+                    <div class="message-body" id="trip-info">
                         <form>
                             <div class="field">
                                 <label class="label">Location</label>
@@ -102,7 +109,7 @@
                         </form>
                     </div>
                 </article>
-
+                <!-- view plans modal  -->
                 <div class="modal" id="view-plans-modal">
                     <div class="modal-background"></div>
                     <div class="modal-card">
@@ -110,11 +117,11 @@
                             <p class="modal-card-title has-text-white">View Your Plans</p>
                             <button class="delete" aria-label="close" id="view-plans-x"></button>
                         </header>
-                        <section class="modal-card-body">
-                            <h1 class="title is-3">Check your email for your plan keys.</h1>
+                        <section class="modal-card-body" id="view-plans-modal-body">
+                            <h1 class="title is-3">Check your email for your plan key.</h1>
                             <form>
                                 <div class="field">
-                                    <label class="label">Enter Plan Key:</label>
+                                    <label class="label">Plan Key:</label>
                                     <input type="text" class="input is-dark" id="plan-key" placeholder="PlanKeyHere">
                                 </div>
                                 <div class="field">
@@ -133,6 +140,7 @@
                 </div>
             </div>
         </div>
+        <!-- send plans modal  -->
         <div class="modal" id="send-plans-modal">
             <div class="modal-background"></div>
             <div class="modal-card">
@@ -140,7 +148,7 @@
                     <p class="modal-card-title has-text-white">Send Events</p>
                     <button class="delete" aria-label="close" id="send-plans-x"></button>
                 </header>
-                <section class="modal-card-body">
+                <section class="modal-card-body" id="send-plans-modal-body">
                     <h1 class="title is-3">Please enter your group name, email, username, and the emails of the people
                         you would like to invite.</h1>
                     <form>
@@ -174,27 +182,27 @@
                         </div>
                         <div class="field">
                             <label class="label">Email 5:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email5" placeholder="Example@place.com">
                         </div>
                         <div class="field">
                             <label class="label">Email 6:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email6" placeholder="Example@place.com">
                         </div>
                         <div class="field">
                             <label class="label">Email 7:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email7" placeholder="Example@place.com">
                         </div>
                         <div class="field">
                             <label class="label">Email 8:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email8" placeholder="Example@place.com">
                         </div>
                         <div class="field">
                             <label class="label">Email 9:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email9" placeholder="Example@place.com">
                         </div>
                         <div class="field">
                             <label class="label">Email 10:</label>
-                            <input type="text" class="input is-dark" id="email4" placeholder="Example@place.com">
+                            <input type="text" class="input is-dark" id="email10" placeholder="Example@place.com">
                         </div>
                         <br>
                     </form>
@@ -208,6 +216,7 @@
             </div>
         </div>
         <br>
+        <!-- footer  -->
         <section class="hero is-dark" id="page-footer">
             <div class="hero-body">
                 <div class="container">

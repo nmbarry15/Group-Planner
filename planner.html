@@ -78,20 +78,25 @@
                 <div class="modal" id="view-plans-modal">
                     <div class="modal-background"></div>
                     <div class="modal-card">
-                        <header class="modal-card-head">
-                            <p class="modal-card-title">View Your Plans</p>
+                        <header class="modal-card-head has-background-dark">
+                            <p class="modal-card-title has-text-white">View Your Plans</p>
                             <button class="delete" aria-label="close" id="view-plans-x"></button>
                         </header>
-                        <section class="modal-card-body">
-                            <h1 class="title is-3">Check your email for your plan keys.</h1>
+                        <section class="modal-card-body" id="view-plans-modal-body">
+                            <h1 class="title is-3">Check your email for your plan key.</h1>
                             <form>
                                 <div class="field">
-                                    <label class="label">Enter Plan Key:</label>
+                                    <label class="label">Plan Key:</label>
                                     <input type="text" class="input is-dark" id="plan-key" placeholder="PlanKeyHere">
                                 </div>
                                 <div class="field">
+<<<<<<< HEAD
                                     <label class="label">Your Name:</label>
                                     <input type="text" class="input is-dark" id="username" placeholder="How your group will identify you">
+=======
+                                    <label class="label">Your Screen Name:</label>
+                                    <input type="text" class="input is-dark" id="username" placeholder="This is how your group will identify you">
+>>>>>>> 155d336f71659a39df072dc2d0bea4dea9d356c3
                                 </div>
                             </form>
                         </section>
@@ -103,7 +108,20 @@
                         </footer>
                     </div>
                 </div>
+                <!-- chat -->
+                <button class="open-button" onclick="openForm()">Chat</button>
 
+                <div class="chat-popup" id="myForm">
+                  <form action="/action_page.php" class="form-container has-background-grey has-text-white">
+                    <h1>Chat</h1>
+                
+                    <label for="msg"><b>Message</b></label>
+                    <textarea placeholder="Type message.." name="msg" required></textarea>
+                
+                    <button type="submit" class="btn has-background-white has-text-dark">Send</button>
+                    <button type="button" class="btn cancel has-background-black has-text-white" onclick="closeForm()">Close</button>
+                  </form>
+                </div>
             </div>
         </div>
         <br>
@@ -118,7 +136,11 @@
         </section>
     </div>
     <!-- <script src="api.js"></script> -->
+<<<<<<< HEAD
     <script src="Sortable.js"></script>
+=======
+    <script src="main.js"></script>
+>>>>>>> 155d336f71659a39df072dc2d0bea4dea9d356c3
     <script src="firebase.js"></script>
     <script src="main.js"></script>
     
