@@ -130,7 +130,7 @@ transform: rotate(45deg);
 
 /* description scroll */
 .description{
-  overflow: scroll;
+  overflow: auto;
   height: 100px;
 }
 

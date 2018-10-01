@@ -89,7 +89,7 @@ $("#send-plans-send-button").on("click", function (event) {
         $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
     } else {
         var screenName = $("#screen-name").val()
-        var groupName = $("#group-name").val()
+        groupName = $("#group-name").val()
         localStorage.setItem("username", screenName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
@@ -169,6 +169,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
             var sposterImg = $("<div class='media-left'>")/*.append(
                 $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-futbol-o' aria-hidden='true'></i>"));
 
+            //might not need first p
             var sotherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
                 $("<a href='" + surl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(stitle),
                 $("<br>"),
