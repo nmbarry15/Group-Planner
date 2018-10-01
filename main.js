@@ -21,16 +21,16 @@ $("#submit-btn").on("click", function (event) {
         eventParameters.push("music");
     }
 
-console.log(eventParameters)
-    if((locationz==="")||(startDate==="")||(endDate==="")||(eventParameters.length===0)){
+    console.log(eventParameters)
+    if ((locationz === "") || (startDate === "") || (endDate === "") || (eventParameters.length === 0)) {
         $("#NO").remove();
         $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields and check at least one box.</h1>')
-        eventParameters=[];
+        eventParameters = [];
     } else {
-    initializeGroupKey();
-    
-    // opening the send plans modal
-    $("#send-plans-modal").addClass("is-active")
+        initializeGroupKey();
+
+        // opening the send plans modal
+        $("#send-plans-modal").addClass("is-active")
 
 
         // opening the send plans modal
@@ -80,42 +80,203 @@ $("#send-plans-x").on("click", function (event) {
 })
 
 // send plans button storing info and redirecting
+var groupName;
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
-    if(($("#email0").val().trim()==="")||($("#group-name").val().trim()==="")||($("#screen-name").val().trim()==="")){
+    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
         console.log("HAAAAAAAAAAAY")
         $("#no-sir").remove();
         $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
-    } else{
-    var screenName= $("#screen-name").val()
-    var groupName= $("#group-name").val()
-    localStorage.setItem("username", screenName);
-    for (i = 0; i < 11; i++) {
-        var email = $("#email" + i).val().trim()
-        if (email !== "") {
-            emails.push(email)
-            console.log(emails)
+    } else {
+        var screenName = $("#screen-name").val()
+        var groupName = $("#group-name").val()
+        localStorage.setItem("username", screenName);
+        for (i = 0; i < 11; i++) {
+            var email = $("#email" + i).val().trim()
+            if (email !== "") {
+                emails.push(email)
+                console.log(emails)
+            }
         }
+        emailSend()
+        // store group name locally, in firebase, or both?
+        //store event key locally, in firebase, or both?
+        window.location = "planner.html"
+        $("#group-plans").text(groupName + " Plans");
     }
-    emailSend()
-    // store group name locally, in firebase, or both?
-    //store event key locally, in firebase, or both?
-    window.location = "planner.html"
-}})
+});
 
 // view plans button storing info and redirecting
 $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
-    if (($("#username").val().trim()!=="")&&($("#plan-key").val().trim()!=="")){
-    var screenName= $("#username").val().trim()
-    localStorage.setItem("username", screenName);
-    // store group name locally, in firebase, or both?
-    //store event key locally, in firebase, or both?
-    window.location = "planner.html"
+    if (($("#username").val().trim() !== "") && ($("#plan-key").val().trim() !== "")) {
+        var screenName = $("#username").val().trim()
+        localStorage.setItem("username", screenName);
+        // store group name locally, in firebase, or both?
+        //store event key locally, in firebase, or both?
+        window.location = "planner.html"
     } else {
         $("#nope").remove();
-        $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')}
+        $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')
+    }
 })
+
+//add firebase data to planner.html
+var gKey = localStorage.getItem("groupKey");
+console.log(groupKey);
+firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
+    var sportsArr = [];
+    var outdoorArr = [];
+    var musicArr = [];
+    console.log(snap.val());
+
+    snap.forEach(function (child) {
+        if (child.val().category === "sports") {
+            sportsArr.push(child.val());
+        }
+        if (child.val().category === "outdoors") {
+            outdoorArr.push(child.val())
+        }
+        if (child.val().category === "music") {
+            musicArr.push(child.val())
+        }
+    });
+    console.log(sportsArr);
+    console.log(outdoorArr);
+    console.log(musicArr);
+
+    var eventsDiv = $("#event-holder");
+
+    //add sports events
+    if (!(sportsArr.length == 0)) {
+        var sportsCol = $("<div class='column' id='sports-col'>");
+        var slistHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Sports Events </strong>");
+        var sportsList = $("<div class='list-group' id='sportsList'>");
+
+
+        for (let i = 0; i < sportsArr.length; i++) {
+            var sportsListItem = $("<div class='list-group-item'>");
+            var sportsBox = $("<div class='box'id='sports-" + i + "'>");
+            var sportsMedia = $("<article class='media'>");
+            var stime = sportsArr[i].time;
+            var smodifiedTime = moment(stime, "YYYY-MM-DD HH:mm:ss").format("ddd, MMMM Do @ LT");
+            var stitle = sportsArr[i].title;
+            var surl = sportsArr[i].url;
+            var sDescription = sportsArr[i].description;
+
+
+
+            var sposterImg = $("<div class='media-left'>")/*.append(
+                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-futbol-o' aria-hidden='true'></i>"));
+
+            var sotherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
+                $("<a href='" + surl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(stitle),
+                $("<br>"),
+                $("<small>").text(smodifiedTime),
+                $("<br>"),
+                $("<div class='description'>").text(sDescription)
+            );
+
+            sportsMedia.append(sposterImg, sotherInfo);
+            sportsBox.append(sportsMedia)
+
+            sportsListItem.append(sportsBox);
+            sportsList.append(sportsListItem);
+        }
+        sportsCol.append(slistHeader, sportsList)
+        eventsDiv.append(sportsCol);
+        var sportsList = document.getElementById("sportsList");
+        Sortable.create(sportsList);
+    }
+
+    // outdoor events
+    if (!(outdoorArr.length == 0)) {
+        var outdoorCol = $("<div class='column' id='outdoor-col'>");
+        var oListHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Outdoor Events </strong>");
+        var outdoorList = $("<div class='list-group' id='outdoorList'>");
+
+
+        for (let i = 0; i < outdoorArr.length; i++) {
+            var outdoorListItem = $("<div class='list-group-item'>");
+            var outdoorBox = $("<div class='box' id='outdoor-" + i + "'>");
+            var outdoorMedia = $("<article class='media'>");
+            var oTime = outdoorArr[i].time;
+            var oModifiedTime = moment(oTime, "YYYY-MM-DD HH:mm:ss").format("ddd, MMMM Do @ LT");
+            var oTitle = outdoorArr[i].title;
+            var oUrl = outdoorArr[i].url;
+            var oDescription = outdoorArr[i].description;
+
+            var oPosterImg = $("<div class='media-left'>")/*.append(
+                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-tree' aria-hidden='true'></i>"));
+
+            var oOtherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
+                $("<a href='" + oUrl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(oTitle),
+                $("<br>"),
+                $("<small>").text(oModifiedTime),
+                $("<br>"),
+                $("<div class='description'>").text(oDescription)
+            );
+
+            outdoorMedia.append(oPosterImg, oOtherInfo);
+            outdoorBox.append(outdoorMedia)
+
+            outdoorListItem.append(outdoorBox);
+            outdoorList.append(outdoorListItem);
+        }
+        outdoorCol.append(oListHeader, outdoorList);
+        eventsDiv.append(outdoorCol);
+        var outdoorList = document.getElementById("outdoorList");
+        Sortable.create(outdoorList);
+    }
+
+    //add music events
+    if (!(musicArr.length == 0)) {
+        var musicCol = $("<div class='column' id='music-col'>");
+        var mListHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Music Events </strong>");
+        var musicList = $("<div class='list-group' id='musicList'>");
+
+
+        for (let i = 0; i < musicArr.length; i++) {
+            var musicListItem = $("<div class='list-group-item'>");
+            var musicBox = $("<div class='box' id='music-" + i + "'>");
+            var musicMedia = $("<article class='media'>");
+            var mTime = musicArr[i].time;
+            var mModifiedTime = moment(mTime, "YYYY-MM-DD HH:mm:ss").format("ddd, MMMM Do @ LT");
+            var mTitle = musicArr[i].title;
+            var mUrl = musicArr[i].url;
+            var mDescription = musicArr[i].description;
+            // console.log(mDescription.length)
+            // if(mDescription.length > 30){
+            //     mDescription = mDescription.substring(0,30);
+            // }
+
+            var mPosterImg = $("<div class='media-left'>")/*.append(
+                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-music' aria-hidden='true'></i>"));
+
+            var mOtherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
+                $("<a href='" + mUrl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(mTitle),
+                $("<br>"),
+                $("<small>").text(mModifiedTime),
+                $("<br>"),
+                $("<div class='description'>").text(mDescription)
+            );
+
+            musicMedia.append(mPosterImg, mOtherInfo);
+            musicBox.append(musicMedia)
+
+            musicListItem.append(musicBox);
+            musicList.append(musicListItem);
+        }
+        musicCol.append(mListHeader, musicList);
+        eventsDiv.append(musicCol);
+        var musicList = document.getElementById("musicList");
+        Sortable.create(musicList);
+    }
+
+
+
+
+});
 
 // chat
 function openForm() {
