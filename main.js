@@ -185,7 +185,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         sportsCol.append(slistHeader, sportsList)
         eventsDiv.append(sportsCol);
         var sportsList = document.getElementById("sportsList");
-        // Sortable.create(sportsList);
+        Sortable.create(sportsList);
     }
 
     // outdoor events
@@ -225,7 +225,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         outdoorCol.append(oListHeader, outdoorList);
         eventsDiv.append(outdoorCol);
         var outdoorList = document.getElementById("outdoorList");
-        // Sortable.create(outdoorList);
+        Sortable.create(outdoorList);
     }
 
     //add music events
@@ -269,7 +269,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         musicCol.append(mListHeader, musicList);
         eventsDiv.append(musicCol);
         var musicList = document.getElementById("musicList");
-        // Sortable.create(musicList);
+        Sortable.create(musicList);
     }
 
 
