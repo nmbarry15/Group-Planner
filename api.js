@@ -1,6 +1,7 @@
 var currentLocations
-var dataHolder
+var blah
 var eventStuff = {}
+dateTime = "2018092800-2018093000"
 var eventType = {
     outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity",
     sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity",
@@ -29,12 +30,12 @@ function api(one, two, three) {
             response = JSON.parse(response)
             var ePhoto
             for (let j = 0; j < 6; j++) {
-                // if (response.events.event[j].image !== null) {
-                //     ePhoto = response.events.event[j].image.thumb.url
-                // }
-                // else {
-                //     ePhoto = "http://d1marr3m5x4iac.cloudfront.net/store/skin/no_image/categories/48x48/other.jpg"
-                // }
+                if (response.events.event[j].image !== null) {
+                    ePhoto = response.events.event[j].image.thumb.url
+                }
+                else {
+                    ePhoto = "http://d1marr3m5x4iac.cloudfront.net/store/skin/no_image/categories/48x48/other.jpg"
+                }
                 eventStuff = {
                     title: response.events.event[j].title,
                     poster: ePhoto,
@@ -59,10 +60,11 @@ function api(one, two, three) {
 api("", "geo")
 function apiCall(one, two) {
     for (let index = 0; index < eventParameters.length; index++) {
-        dataHolder = eventParameters[index]
-        var eventpiece = eventType[dataHolder]
+        blah = eventParameters[index]
+        console.log(blah)
+        var eventpiece = eventType[blah]
         var full = one + eventpiece
-        api(full, "event", dataHolder)
+        api(full, "event", blah)
     }
 }
 // email stuff below
