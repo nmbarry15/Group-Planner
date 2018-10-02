@@ -165,18 +165,19 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
 
 
 
-            var sposterImg = $("<div class='media-left'>")/*.append(
-                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-futbol-o' aria-hidden='true'></i>"));
+            var sposterImg = $("<div class='media-left'>").append($("<i class='fas fa-futbol' aria-hidden='true'></i>"));
 
             var sotherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
                 $("<a href='" + surl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(stitle),
                 $("<br>"),
                 $("<small>").text(smodifiedTime),
                 $("<br>"),
-                $("<div class='description'>").text(sDescription)
+                $("<div class='description'>").append($("<small>").html(sDescription))
             );
 
-            sportsMedia.append(sposterImg, sotherInfo);
+            var sAddBtn = $("<div class='media-left'>").append($("<div class='media-right'>").append($("<i class='far fa-plus-square fa-2x'></i>")));
+
+            sportsMedia.append(sposterImg, sotherInfo, sAddBtn);
             sportsBox.append(sportsMedia)
 
             sportsListItem.append(sportsBox);
@@ -185,7 +186,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         sportsCol.append(slistHeader, sportsList)
         eventsDiv.append(sportsCol);
         var sportsList = document.getElementById("sportsList");
-        // Sortable.create(sportsList);
+        Sortable.create(sportsList);
     }
 
     // outdoor events
@@ -205,18 +206,19 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
             var oUrl = outdoorArr[i].url;
             var oDescription = outdoorArr[i].description;
 
-            var oPosterImg = $("<div class='media-left'>")/*.append(
-                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-tree' aria-hidden='true'></i>"));
+            var oPosterImg = $("<div class='media-left'>").append($("<i class='fa fa-tree' aria-hidden='true'></i>"));
 
             var oOtherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
                 $("<a href='" + oUrl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(oTitle),
                 $("<br>"),
                 $("<small>").text(oModifiedTime),
                 $("<br>"),
-                $("<div class='description'>").text(oDescription)
+                $("<div class='description'>").append($("<small>").html(oDescription))
             );
 
-            outdoorMedia.append(oPosterImg, oOtherInfo);
+            var oAddBtn = $("<div class='media-left'>").append($("<div class='media-right'>").append($("<i class='far fa-plus-square fa-2x'></i>")));
+
+            outdoorMedia.append(oPosterImg, oOtherInfo, oAddBtn);
             outdoorBox.append(outdoorMedia)
 
             outdoorListItem.append(outdoorBox);
@@ -225,7 +227,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         outdoorCol.append(oListHeader, outdoorList);
         eventsDiv.append(outdoorCol);
         var outdoorList = document.getElementById("outdoorList");
-        // Sortable.create(outdoorList);
+        Sortable.create(outdoorList);
     }
 
     //add music events
@@ -244,23 +246,20 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
             var mTitle = musicArr[i].title;
             var mUrl = musicArr[i].url;
             var mDescription = musicArr[i].description;
-            // console.log(mDescription.length)
-            // if(mDescription.length > 30){
-            //     mDescription = mDescription.substring(0,30);
-            // }
+            
 
-            var mPosterImg = $("<div class='media-left'>")/*.append(
-                $("<figure class='image is-64x64'>")*/.append($("<i class='fa fa-music' aria-hidden='true'></i>"));
+            var mPosterImg = $("<div class='media-left'>").append($("<i class='fa fa-music'></i>"));
 
             var mOtherInfo = $("<div class='media-content'>").append("<div class='content'").append($("<p>")).append(
                 $("<a href='" + mUrl + "'target='_blank' rel='noopener noreferrer'>").append("<strong>").text(mTitle),
                 $("<br>"),
                 $("<small>").text(mModifiedTime),
-                $("<br>"),
-                $("<div class='description'>").text(mDescription)
+                $("<div class='description'>").append($("<small>").html(mDescription))
             );
 
-            musicMedia.append(mPosterImg, mOtherInfo);
+            var mAddBtn = $("<div class='media-left'>").append($("<div class='media-right'>").append($("<i class='far fa-plus-square fa-2x'></i>")));
+
+            musicMedia.append(mPosterImg, mOtherInfo, mAddBtn);
             musicBox.append(musicMedia)
 
             musicListItem.append(musicBox);
@@ -269,7 +268,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         musicCol.append(mListHeader, musicList);
         eventsDiv.append(musicCol);
         var musicList = document.getElementById("musicList");
-        // Sortable.create(musicList);
+        Sortable.create(musicList);
     }
 
 
