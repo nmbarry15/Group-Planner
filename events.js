@@ -58,7 +58,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
                 $("<div class='description'>").append($("<small>").html(sDescription))
             );
 
-            var sAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='sports-" + i + "' cat='sports'>").append($("<i class='far fa-plus-square fa-2x toggle'></i>"));
+            var sAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='sports-" + i + "' cat='sports' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
 
             sportsMedia.append(sposterImg, sotherInfo, sAddBtn);
             sportsBox.append(sportsMedia)
@@ -99,7 +99,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
                 $("<div class='description'>").append($("<small>").html(oDescription))
             );
 
-            var oAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='outdoor-" + i + "' cat='outdoor'>").append($("<i class='far fa-plus-square fa-2x toggle'></i>"));
+            var oAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='outdoor-" + i + "' cat='outdoor' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
 
             outdoorMedia.append(oPosterImg, oOtherInfo, oAddBtn);
             outdoorBox.append(outdoorMedia)
@@ -141,7 +141,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
                 $("<div class='description'>").append($("<small>").html(mDescription))
             );
 
-            var mAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='music-" + i + "' cat='music'>").append($("<i class='far fa-plus-square fa-2x toggle'></i>"));
+            var mAddBtn = $("<div class='button media-right add-btn is-info is-inverted'  val='music-" + i + "' cat='music' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
 
             musicMedia.append(mPosterImg, mOtherInfo, mAddBtn);
             musicBox.append(musicMedia)
@@ -183,9 +183,13 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
                 $("<div class='description'>").append($("<small>").html(pDescription))
             );
 
-            var pAddBtn = $("<div class='button media-right add-btn is-info is-inverted' val='pop-" + i + "'  cat='pop' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle'></i>"));
+            var pMediaRight = $("<div class = 'media-right'>")
+            var pAddBtn = $("<div class='button add-btn is-info is-inverted' val='pop-" + i + "'  cat='pop' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>")).append("<br>");
+            var pLikeBtn =  $("<div class='button like-btn is-info is-inverted is-invisible' val='pop-" + i + "' liked='false'>").append($("<i class='far fa-thumbs-up fa-2x'></i>"));
 
-            popMedia.append(pPosterImg, pOtherInfo, pAddBtn);
+            pMediaRight.append(pAddBtn, pLikeBtn)
+
+            popMedia.append(pPosterImg, pOtherInfo, pMediaRight);
             popBox.append(popMedia)
 
             //popListItem.append(popBox);
@@ -195,58 +199,56 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
         eventsDiv.append(popCol);
         Sortable.create(document.getElementById("popList"));
     }
-
-    var plansHolder = $("#plans-holder");
-    var plus = true;
-
-    $(".add-btn").on("click", function () {
-        console.log("button clicked");
-        var divId = $(this).attr("val");
-        var divCat = $(this).attr("cat");
-        var finalPlan = $(this).attr("finalPlan")
-        console.log ($(this).attr("cat"))
-        console.log(finalPlan)
-
-        if (finalPlan == "false") {
-            plansHolder.append($("#" + divId));
-            Sortable.create(document.getElementById("plans-holder"));
-            $(this).attr("finalPlan", "true")
-            console.log("inside if finalPlan: " + $(this).attr("finalPlan"))
-        }
-        else{
-            if(divCat === "sports"){
-                $("#sportsList").append($("#" + divId));
-                $(this).attr("finalPlan", "false")
-            }
-            if(divCat === "outdoor"){
-                $("#outdoorList").append($("#" + divId));
-                $(this).attr("finalPlan", "false")
-            }
-            if(divCat === "music"){
-                $("#musicList").append($("#" + divId));
-                $(this).attr("finalPlan", "false")
-            }
-            if(divCat === "pop"){
-                $("#popList").append($("#" + divId));
-                $(this).attr("finalPlan", "false")
-            }
-        }
-        console.log("finalPlan: " + $(this).attr("finalPlan"))
-    })
-
-    $(".toggle").on("click", function () {
-        console.log(this)
-        if (plus) {
-            $(this).removeClass("fa-plus-square")
-            $(this).addClass("fa-minus-square")
-            plus = false;
-        }
-        else {
-            $(this).removeClass("fa-minus-square")
-            $(this).addClass("fa-plus-square")
-            plus = true;
-        }
-    })
-
-
 });
+
+var plansHolder = $("#plans-holder");
+
+$("body").on("click", ".add-btn", function () {
+    console.log("button clicked");
+    var divId = $(this).attr("val");
+    var divCat = $(this).attr("cat");
+    var finalPlan = $(this).attr("finalPlan")
+    console.log($(this).attr("cat"))
+    console.log("Initial finalPlan: " + finalPlan)
+
+    if (finalPlan == "false") {
+        plansHolder.append($("#" + divId));
+        Sortable.create(document.getElementById("plans-holder"));
+        $(this).attr("finalPlan", "true")
+        console.log("inside of finalPlan true: " + $(this).attr("finalPlan"))
+    }
+    else {
+        if (divCat === "sports") {
+            $("#sportsList").append($("#" + divId));
+            $(this).attr("finalPlan", "false")
+        }
+        if (divCat === "outdoor") {
+            $("#outdoorList").append($("#" + divId));
+            $(this).attr("finalPlan", "false")
+        }
+        if (divCat === "music") {
+            $("#musicList").append($("#" + divId));
+            $(this).attr("finalPlan", "false")
+        }
+        if (divCat === "pop") {
+            $("#popList").append($("#" + divId));
+            $(this).attr("finalPlan", "false")
+        }
+    }
+    console.log("finalPlan: " + $(this).attr("finalPlan"))
+})
+
+$("body").on("click",".toggle", function () {
+    console.log(this)
+    var plus = $(this).attr("plus")
+    if (plus === "true") {
+        $(this).removeClass("fa-plus-square")
+        $(this).addClass("fa-minus-square")
+        $(this).attr("plus", "false")
+    }
+    else {
+        $(this).removeClass("fa-minus-square")
+        $(this).addClass("fa-plus-square")
+        $(this).attr("plus", "true")
+    }
+})
