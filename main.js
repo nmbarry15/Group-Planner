@@ -114,9 +114,9 @@ $("#send-plans-x").on("click", function (event) {
 // send plans button storing info and redirecting
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
-    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
+    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")|| $("#email0").val().indexOf("@") === -1 || $("#email0").val().indexOf(".") === -1) {
         $("#no-sir").remove();
-        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
+        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your valid email are required.</h1>')
         reset($("#email0"))
         reset($("#group-name"))
         reset($("#screen-name"))
@@ -132,6 +132,7 @@ $("#send-plans-send-button").on("click", function (event) {
     } else {
         var screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
+        
         localStorage.setItem("username", screenName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
@@ -155,6 +156,7 @@ $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
     if (($("#username").val().trim() !== "") && ($("#plan-key").val().trim() !== "")) {
         var screenName = $("#username").val().trim()
+        localStorage.setItem("groupKey", $("#plan-key").val().trim())
         localStorage.setItem("username", screenName);
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
