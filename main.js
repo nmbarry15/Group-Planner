@@ -1,4 +1,6 @@
 //take info from form and make variables on click
+var startDate
+var endDate
 var eventParameters
 var emails = []
 var screenName
@@ -16,8 +18,8 @@ function makeRed(box) {
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
-    var startDate = $("#start-date").val().trim();
-    var endDate = $("#end-date").val().trim();
+    startDate = $("#start-date").val().trim();
+    endDate = $("#end-date").val().trim();
     reset($("#email0"))
     reset($("#group-name"))
     reset($("#screen-name"))
@@ -64,6 +66,7 @@ $("#submit-btn").on("click", function (event) {
 
 
         locationz = sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
+        latlocation = locationz
         var dateTime = moment(startDate).format("YYYYMMDD") + "00-" + moment(endDate).format("YYYYMMDD") + "00"
         var holdIt = locationz + "&date=" + dateTime
         apiCall(holdIt, "event")
@@ -130,7 +133,6 @@ $("#send-plans-send-button").on("click", function (event) {
         var screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
         localStorage.setItem("username", screenName);
-        localStorage.setItem("groupName", groupName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
             if (email !== "") {
@@ -144,6 +146,7 @@ $("#send-plans-send-button").on("click", function (event) {
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
         window.location = "planner.html"
+        $("#group-plans").text(groupName + " Plans");
     }
 });
 
@@ -170,7 +173,7 @@ $("#view-plans-submit-button").on("click", function (event) {
     }
 })
 
-// $("#group-plans").text(firebase.database().)
+$("#group-plans").text(localStorage.getItem("groupName") + "'s Plans");
 
 // chat
 function openForm() {
@@ -180,3 +183,67 @@ function openForm() {
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
+
+// CHAT CODE HERE
+
+// =======================  Send Message On Click  ========================
+
+$("#chat-send-button").on("click", function(event) {
+    event.preventDefault();
+    
+    var msgData = {
+        message: $("#message-input").val(),
+        user: localStorage.getItem("username"),
+        timeDisplay: moment().format("HH:mm:ss"),
+        type: "message",
+        timestamp: moment().unix()
+    };
+    database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(msgData);
+    $("#message-input").val("");
+});
+
+// =======================  Like Button or Notification On Click  ========================
+
+// $("#like-btn").on("click", function(event) {
+//     event.preventDefault();
+
+//     var notifyData = {
+//         user: localStorage.getItem("username"),
+//         event: $(".like-btn").attr("title"),
+//         timeDisplay: moment().format("HH:mm"),
+//         type: "notification",
+//         timestamp: moment().unix()
+//     }
+
+//     database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(notifyData);
+// })
+
+// =======================  Listener for any Chat Log Updates  ========================
+database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChild("timestamp").on("child_added", function(snap) {
+    console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
+    if (snap.val().type === "message") {
+        var constructedMessage = $('<div data-time-display='+ snap.val().timeDisplay + '>');
+        var messageContent = $("<span>").text(snap.val().user + ":\xa0\xa0" + snap.val().message);
+
+        constructedMessage.append(messageContent);
+        $("#chat-box").append(constructedMessage);
+        
+    } else if (snap.val().type === "notification") {
+        var constructedNotification = $('<div class="has-backgorund-liked" data-time-display='+ snap.val().timeDisplay + '>');
+        var notificationContent = $("<span>").text(snap.val().user + " liked the event:\xa0" + snap.val().event);
+
+        constructedNotification.append(notificationContent);
+        $("#chat-box").append(constructedNotification);
+    }
+})
+// =======================  Listener for Weather  ========================
+
+
+database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
+    var icon = snap.val().icon;
+    var forecast = snap.val().forecast;
+    var forecastStartDate = snap.val().forecastStartDate;
+    console.log(snap.val())
+    console.log(forecastStartDate);
+})
+
