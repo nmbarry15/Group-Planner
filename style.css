@@ -265,3 +265,12 @@ transform: rotate(45deg);
   opacity: 1;
 }
 
+.media-content {
+  width:calc(100%-41.33px);
+  overflow: hidden;
+}
+
+#table-holder{
+  height: 300px;
+  overflow: auto;
+}
