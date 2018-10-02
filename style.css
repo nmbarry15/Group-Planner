@@ -278,3 +278,12 @@ transform: rotate(45deg);
   padding: 3px;
   overflow-x:hidden;
 }
+
+#message-input {
+  width: 270px;
+  margin: 5px;
+}
+
+#chat-x{
+  float: right;
+}

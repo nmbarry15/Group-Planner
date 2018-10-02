@@ -59,7 +59,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
                 $("<div class='description'>").append($("<small>").html(sDescription))
             );
 
-            var sButtonsDiv = $("<div class='media-right'>");
+            var sButtonsDiv = $("<div>");
 
             var sAddBtn = $("<div class='button add-btn is-info is-inverted'  val='sports-" + i + "' cat='sports' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
             var sLikeBtn = $("<div class='button like-btn is-info is-inverted is-invisible' val='pop-" + i + "'  cat='sports' show='false'>").append($("<i class='far fa-thumbs-up fa-2x like-btn' liked='false' title='" + stitle + "'></i>"));
