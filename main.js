@@ -225,35 +225,45 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
     console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
     if (snap.val().type === "message") {
         var constructedMessage = $('<div data-time-display='+ snap.val().timeDisplay + '>');
-        var messageContent = $("<span>").text(snap.val().user + ":\xa0\xa0" + snap.val().message);
+        var userStuff
+        if (snap.val().user===localStorage.getItem("username")){
+            userStuff= '<font color="red">'+snap.val().user+'</font>'
+        }
+        else{
+            userStuff= '<font color="blue">'+snap.val().user+'</font>'
+        }
+        var messageContent = $("<span>").html(userStuff + ":\xa0\xa0" + snap.val().message);
 
         constructedMessage.append(messageContent);
         $("#chat-box").append(constructedMessage);
         
     } else if (snap.val().type === "notification") {
         var constructedNotification = $('<div class="has-backgorund-liked" data-time-display='+ snap.val().timeDisplay + '>');
-        var notificationContent = $("<span>").text(snap.val().user + " liked the event:\xa0" + snap.val().event);
+        var notificationContent = $("<span>").html('<font color="green">'+snap.val().user + "</font> liked the event:\xa0" + snap.val().event);
 
         constructedNotification.append(notificationContent);
         $("#chat-box").append(constructedNotification);
     }
 })
 // =======================  Listener for Weather  ========================
+var icon
+var forecast
+var forecastStartDate
+if ( $("#checkIt").attr("value")==="true" ) {
+database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").once("value", function(snap) {
+     icon = snap.val().icon;
+     forecast = snap.val().forecast;
+     forecastStartDate = snap.val().forecastStartDate;
+     console.log(forecast, forecastStartDate, icon)
+     console.log(icon[0])
+     for (x=0;x<forecast.length;x++){
+         console.log("I be in it")
+        var y = x+1
+        $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icon[x] +" </div>")
+    }
 
-
-database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
-    var icon = snap.val().icon;
-    var forecast = snap.val().forecast;
-    var forecastStartDate = snap.val().forecastStartDate;
-    console.log(snap.val())
-    console.log(forecastStartDate);
 })
-
- var icons = ["<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>"]
-var weather = ["partly cloudy day", "partly cloudy day", "partly cloudy day", "partly cloudy night", "partly cloudy day", "partly cloudy night"]
-
-
-for (x=0;x<weather.length;x++){
-    var y = x+1
-    $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icons[x] +" </div>")
 }
+    
+
+
