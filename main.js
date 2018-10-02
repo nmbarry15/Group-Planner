@@ -391,3 +391,57 @@ function openForm() {
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
+
+// CHAT CODE HERE
+
+// =======================  Send Message On Click  ========================
+
+$("#chat-send-button").on("click", function(event) {
+    event.preventDefault();
+    
+    var msgData = {
+        message: $("#message-input").val(),
+        user: localStorage.getItem("username"),
+        timeDisplay: moment().format("HH:mm:ss"),
+        type: "message",
+        timestamp: moment().unix()
+    };
+    database.ref("groups/chat").push(msgData);
+    // REAL DB CALL -- database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(msgData);
+    $("#message-input").val("");
+});
+
+// =======================  Like Button or Notification On Click  ========================
+
+$("#like-button").on("click", function(event) {
+    event.preventDefault();
+
+    var notifyData = {
+        user: localStorage.getItem("username"),
+        event: "Event Name",
+        timeDisplay: moment().format("HH:mm"),
+        type: "notification",
+        timestamp: moment().unix()
+    }
+
+    database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(notifyData);
+})
+
+// =======================  Listener for any Chat Log Updates  ========================
+// REAL DB REFERENCE database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChild("timestamp").on("child_added", function(snap) {
+
+database.ref("groups/chat").orderByChild("timestamp").on("child_added", function(snap) {
+    console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
+    if (snap.val().type === "message") {
+        var constructedTableRow = $('<tr data-time-display='+ snap.val().timeDisplay + '>');
+        var username = $("<td>").text(snap.val().user);
+        var messageContent = $("<td>").text(snap.val().message);
+
+        constructedTableRow.append(username, messageContent);
+        $("#chat-box").append(constructedTableRow);
+        
+    } else if (snap.val().type === "notification") {
+        var notificationConstructed = $("<p class='bg-info'>").text(snap.val().timeDisplay + ":\xa0\xa0" + snap.val().user + " liked event, " + snap.val().event + "!")
+        $("#chat-box").append(notificationConstructed);
+    }
+})
