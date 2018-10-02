@@ -132,6 +132,7 @@ $("#send-plans-send-button").on("click", function (event) {
     } else {
         var screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
+        
         localStorage.setItem("username", screenName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
@@ -155,6 +156,7 @@ $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
     if (($("#username").val().trim() !== "") && ($("#plan-key").val().trim() !== "")) {
         var screenName = $("#username").val().trim()
+        localStorage.setItem("groupKey", $("#plan-key").val().trim())
         localStorage.setItem("username", screenName);
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
