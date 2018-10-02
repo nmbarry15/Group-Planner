@@ -3,13 +3,30 @@ var eventParameters
 var emails = []
 var screenName
 var groupName
+function reset(box) {
+    box.removeClass("is-info")
+    box.removeClass("is-danger")
+    box.addClass("is-info")
+}
+function makeRed(box) {
+    box.removeClass("is-info")
+    box.addClass("is-danger")
+}
+
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
     var startDate = $("#start-date").val().trim();
     var endDate = $("#end-date").val().trim();
-
-    eventParameters = [];
+    reset($("#email0"))
+    reset($("#group-name"))
+    reset($("#screen-name"))
+    reset($("#locationz"))
+    reset($("#start-date"))
+    reset($("#end-date"))
+    $("#NO").remove();
+    $("#no-sir").remove();
+    eventParameters = ["popular"];
 
     if ($("#outdoor-check").prop("checked")) {
         eventParameters.push("outdoors");
@@ -22,16 +39,25 @@ $("#submit-btn").on("click", function (event) {
     }
 
     console.log(eventParameters)
-    if ((locationz === "") || (startDate === "") || (endDate === "") || (eventParameters.length === 0)) {
+    if ((locationz === "") || (startDate === "") || (endDate === "")) {
         $("#NO").remove();
-        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields and check at least one box.</h1>')
-        eventParameters = [];
+        $("#trip-info").prepend('<h1 class="title is-3 has-text-danger" id="NO">Please fill in all fields.</h1>')
+        eventParameters = ["popular"];
+        reset($("#locationz"))
+        reset($("#start-date"))
+        reset($("#end-date"))
+        console.log(endDate)
+        if (locationz === "") {
+            makeRed($("#locationz"))
+        }
+        if (startDate === "") {
+            makeRed($("#start-date"))
+        }
+        if (endDate === "") {
+            makeRed($("#end-date"))
+        }
     } else {
         initializeGroupKey();
-
-        // opening the send plans modal
-        $("#send-plans-modal").addClass("is-active")
-
 
         // opening the send plans modal
         $("#send-plans-modal").addClass("is-active")
@@ -47,6 +73,9 @@ $("#submit-btn").on("click", function (event) {
 // opening the view plans modal
 $("#view-plans-button").on("click", function (event) {
     event.preventDefault();
+    reset($("#username"))
+    reset($("#plan-key"))
+    $("#nope").remove();
     $("#view-plans-modal").addClass("is-active")
     if (localStorage.hasOwnProperty('username')) {
         $("#username").val(localStorage.getItem("username"))
@@ -84,9 +113,20 @@ var groupName;
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
     if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
-        console.log("HAAAAAAAAAAAY")
         $("#no-sir").remove();
         $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
+        reset($("#email0"))
+        reset($("#group-name"))
+        reset($("#screen-name"))
+        if ($("#email0").val().trim() === "") {
+            makeRed($("#email0"))
+        }
+        if ($("#group-name").val().trim() === "") {
+            makeRed($("#group-name"))
+        }
+        if ($("#screen-name").val().trim() === "") {
+            makeRed($("#screen-name"))
+        }
     } else {
         var screenName = $("#screen-name").val()
         var groupName = $("#group-name").val()
@@ -118,6 +158,14 @@ $("#view-plans-submit-button").on("click", function (event) {
     } else {
         $("#nope").remove();
         $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')
+        reset($("#username"))
+        reset($("#plan-key"))
+        if ($("#username").val().trim() === "") {
+            makeRed($("#username"))
+        }
+        if ($("#plan-key").val().trim() === "") {
+            makeRed($("#plan-key"))
+        }
     }
 })
 
@@ -149,7 +197,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
     //add sports events
     if (!(sportsArr.length == 0)) {
         var sportsCol = $("<div class='column' id='sports-col'>");
-        var slistHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Sports Events </strong>");
+        var slistHeader = $("<div class='message-header is-info list-header'>").html("<strong> Sports Events </strong>");
         var sportsList = $("<div class='list-group' id='sportsList'>");
 
 
@@ -191,7 +239,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
     // outdoor events
     if (!(outdoorArr.length == 0)) {
         var outdoorCol = $("<div class='column' id='outdoor-col'>");
-        var oListHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Outdoor Events </strong>");
+        var oListHeader = $("<div class='message-header is-info list-header'>").html("<strong> Outdoor Events </strong>");
         var outdoorList = $("<div class='list-group' id='outdoorList'>");
 
 
@@ -231,7 +279,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
     //add music events
     if (!(musicArr.length == 0)) {
         var musicCol = $("<div class='column' id='music-col'>");
-        var mListHeader = $("<div class='message-header is-dark list-header'>").html("<strong> Music Events </strong>");
+        var mListHeader = $("<div class='message-header is-info list-header'>").html("<strong> Music Events </strong>");
         var musicList = $("<div class='list-group' id='musicList'>");
 
 

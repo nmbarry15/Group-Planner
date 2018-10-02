@@ -8,7 +8,7 @@ body {
 }
 
 html { 
-  background: url(images/background.jpg) no-repeat center center fixed; 
+  background: url(images/party.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -100,7 +100,8 @@ background-color:  rgb(104, 104, 104);
 
 /* When the checkbox is checked, add a black background */
 .check-container input:checked ~ .checkmark {
-background-color: black;
+background-color: hsl(204, 86%, 53%)
+;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
