@@ -238,11 +238,11 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
 // =======================  Listener for Weather  ========================
 
 
-// database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
-//     var icon = snap.val().icon;
-//     var forecast = snap.val().forecast;
-//     var forecastStartDate = snap.val().forecastStartDate;
-//     console.log(snap.val())
-//     console.log(forecastStartDate);
-// })
+database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
+    var icon = snap.val().icon;
+    var forecast = snap.val().forecast;
+    var forecastStartDate = snap.val().forecastStartDate;
+    console.log(snap.val())
+    console.log(forecastStartDate);
+})
 
