@@ -2,6 +2,11 @@ var database = firebase.database();
 var groupsRef = database.ref("groups/")
 var groupKey;
 var eventsRef;
+if ( $("#checker").attr("value")==="true" ) {
+    console.log("hello is it me")
+    localStorage.removeItem("groupKey");
+}
+
 
 // Initialize Group Directory
 // This function is called in main.js on the submit button.
