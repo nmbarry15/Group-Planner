@@ -51,7 +51,7 @@ function api(one, two, three) {
 
         }
         else if (two === "geo") {
-            currentLocations = response.city
+            currentLocations = response.city +" "+ response.state_prov
             document.getElementById("locationz").defaultValue = currentLocations;
             document.getElementById("start-date").defaultValue = moment().format('YYYY-MM-DD');
             document.getElementById("end-date").defaultValue = moment().add(1, 'days').format('YYYY-MM-DD');
