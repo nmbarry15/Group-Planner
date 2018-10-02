@@ -1,4 +1,6 @@
 //take info from form and make variables on click
+var startDate
+var endDate
 var eventParameters
 var emails = []
 var screenName
@@ -16,8 +18,8 @@ function makeRed(box) {
 $("#submit-btn").on("click", function (event) {
     event.preventDefault();
     var locationz = $("#locationz").val().trim();
-    var startDate = $("#start-date").val().trim();
-    var endDate = $("#end-date").val().trim();
+    startDate = $("#start-date").val().trim();
+    endDate = $("#end-date").val().trim();
     reset($("#email0"))
     reset($("#group-name"))
     reset($("#screen-name"))
@@ -64,6 +66,7 @@ $("#submit-btn").on("click", function (event) {
 
 
         locationz = sParameter = encodeURIComponent(locationz.trim()) // changes spaces to %20
+        latlocation = locationz
         var dateTime = moment(startDate).format("YYYYMMDD") + "00-" + moment(endDate).format("YYYYMMDD") + "00"
         var holdIt = locationz + "&date=" + dateTime
         apiCall(holdIt, "event")
