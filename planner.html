@@ -58,6 +58,18 @@
             <div class="container">
                 <article class="message is-info">
                     <div class="message-header">
+                        <p>Weather</p>
+                    </div>
+                    <div class=" message-body">
+                        <div class="columns message is-info" id="weather-holder">
+                            
+
+                        </div>
+                    </div>
+                </article>
+
+                <article class="message is-info">
+                    <div class="message-header">
                         <p>Things to Do</p>
                     </div>
                     <div class=" message-body">
@@ -114,12 +126,10 @@
                 <div class="chat-popup" id="myForm">
                   <form action="/action_page.php" class="form-container has-background-info has-text-white">
                     <h1><b>Chat</b></h1>
-                    <div class="has-background-white" id="table-holder">
-                        <table class="table">
-                            <tbody id="chat-box">
-                            </tbody>
-                        </table>
-                    </div>
+
+                    <div id="chat-box">
+                       
+    </div>
                 
                     <input type="text" id="message-input"> 
                     <button type="submit" class="btn has-background-white has-text-info" id="chat-send-button">Send</button>
