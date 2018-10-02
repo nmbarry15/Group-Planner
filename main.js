@@ -189,9 +189,9 @@ function closeForm() {
 
 $("#chat-send-button").on("click", function(event) {
     event.preventDefault();
-    
+    if ($("#message-input").val().trim()!==""){
     var msgData = {
-        message: $("#message-input").val(),
+        message: $("#message-input").val().trim(),
         user: localStorage.getItem("username"),
         timeDisplay: moment().format("HH:mm:ss"),
         type: "message",
@@ -199,7 +199,7 @@ $("#chat-send-button").on("click", function(event) {
     };
     database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(msgData);
     $("#message-input").val("");
-});
+}});
 
 // =======================  Like Button or Notification On Click  ========================
 
@@ -246,3 +246,11 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
 //     console.log(forecastStartDate);
 // })
 
+ var icons = ["<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>"]
+var weather = ["partly cloudy day", "partly cloudy day", "partly cloudy day", "partly cloudy night", "partly cloudy day", "partly cloudy night"]
+
+
+for (x=0;x<weather.length;x++){
+    var y = x+1
+    $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icons[x] +" </div>")
+}
