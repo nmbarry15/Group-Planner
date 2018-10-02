@@ -172,6 +172,8 @@ $("#view-plans-submit-button").on("click", function (event) {
     }
 })
 
+$("#group-plans").text(localStorage.getItem("groupName") + "'s Plans");
+
 // chat
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -227,7 +229,7 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
         
     } else if (snap.val().type === "notification") {
         var constructedNotification = $('<div class="has-backgorund-liked" data-time-display='+ snap.val().timeDisplay + '>');
-        var notificationContent = $("<span>").text(snap.val().user + "liked the event:\xa0" + snap.val().event);
+        var notificationContent = $("<span>").text(snap.val().user + " liked the event:\xa0" + snap.val().event);
 
         constructedNotification.append(notificationContent);
         $("#chat-box").append(constructedNotification);
