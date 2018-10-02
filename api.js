@@ -13,13 +13,12 @@ var eventType = {
     outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity",
     sports: "&category=sports&within=25&page_number=1&page_size=6&sort_order=popularity",
     music: "&category=music&within=25&page_number=1&page_size=6&sort_order=popularity",
-    popular: "&within=25&page_number=1&page_size=6&sort_order=popularity"
+    popular: "&within=25&page_number=1&page_size=6&sort_order=popularity&ex_category=outdoors_recreation,festivals_parades,sports,music"
 }
 var cat = []
 function api(one, two, three) {
     // We then created an AJAX call
     var term = one
-    console.log(term)
     var qURL = {
         "weather": "https://api.darksky.net/forecast/36457112d298063090f6be502522136c/" + term + "?exclude=currently,minutely,hourly",
         "event": "http://api.eventful.com/json/events/search?app_key=xQgjJDpnCN8V5Tn7&location=" + term,
@@ -28,7 +27,6 @@ function api(one, two, three) {
     }
 
     queryURL = qURL[two]
-    console.log(queryURL)
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -46,19 +44,24 @@ function api(one, two, three) {
                 }
                 cat.push(eventStuff)
             }
-            api(latlocation, "lat")
-            pushApiData(cat);
+            if (eventParameters.length === (cat.length / 6)) {
+                console.log(cat, "this is the new piece")
+                weatherArr = []
+                weatherIcon = []
+                api(latlocation, "lat")
+                pushApiData(cat);
+            }
+
 
         }
         else if (two === "geo") {
-            currentLocations = response.city +" "+ response.state_prov
+            currentLocations = response.city + " " + response.state_prov
             document.getElementById("locationz").defaultValue = currentLocations;
             document.getElementById("start-date").defaultValue = moment().format('YYYY-MM-DD');
             document.getElementById("end-date").defaultValue = moment().add(1, 'days').format('YYYY-MM-DD');
         }
         else if (two === "lat") {
             latLng = response.results[0].geometry.lat + "," + response.results[0].geometry.lng
-            console.log(latLng)
             api(latLng, "weather")
         }
         else if (two === "weather") {
@@ -72,7 +75,6 @@ function api(one, two, three) {
             if (dayCount !== 0) {
                 dayCount++
             }
-            console.log(dayCount)
             if (eventLength + daysTill > 7) { eventLength = eventLength - (eventLength + daysTill - 7) }
             if (daysTill < 7) {
                 weatherArr = []
@@ -96,16 +98,21 @@ function api(one, two, three) {
                     weatherArr.push(tempHolder)
                     dayCount++
                 }
-                console.log(weatherIcon)
+                
+                if (eventLength===weatherArr.length){
+                    console.log("send data here")
+                    console.log(weatherIcon)
                 console.log(weatherArr)
-
-                // var weatherData = {
-                //     icon: weatherIcon,
-                //     forecast: weatherArr,
-                //     forecastStartDate: $("#start-date").val().trim()
-                // }
-                // database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").set(weatherData);
+                var weatherData = {
+                    icon: weatherIcon,
+                    forecast: weatherArr,
+                    forecastStartDate: $("#start-date").val().trim()
+                }
+                database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").set(weatherData);
+                }
+                
             }
+            
         }
     })
 }
@@ -114,7 +121,6 @@ api("", "geo")
 function apiCall(one, two) {
     for (let index = 0; index < eventParameters.length; index++) {
         blah = eventParameters[index]
-        console.log(blah)
         var eventpiece = eventType[blah]
         var full = one + eventpiece
         api(full, "event", blah)

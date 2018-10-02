@@ -6,6 +6,8 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
     var musicArr = [];
     var popArr = [];
     console.log(snap.val());
+    var groupName = snap.val();
+    $("#group-plans").text(groupName + "'s Plans")
 
     snap.forEach(function (child) {
         if (child.val().category === "sports") {
@@ -147,7 +149,7 @@ firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
 
             var mButtonsDiv = $("<div class='media-right'>");
 
-            var mAddBtn = $("<div class='button add-btn is-info is-inverted'  val='music-" + i + "' cat='music' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
+            var mAddBtn = $("<div class='button add-btn is-info is-inverted' val='music-" + i + "' cat='music' finalPlan='false'>").append($("<i class='far fa-plus-square fa-2x toggle' plus='true'></i>"));
             var mLikeBtn = $("<div class='button like-btn is-info is-inverted is-invisible' val='pop-" + i + "'  cat='music' show='false'>").append($("<i class='far fa-thumbs-up fa-2x like-btn' liked='false' title='" + mTitle + "'></i>"));
 
             mButtonsDiv.append(mAddBtn, mLikeBtn)
@@ -252,12 +254,14 @@ $("body").on("click", ".toggle", function () {
     if (plus === "true") {
         $(this).removeClass("fa-plus-square")
         $(this).addClass("fa-minus-square")
-        $(this).attr("plus", false);
+        $(this).attr("plus", "false");
+        console.log("inside add true")
     }
     else {
         $(this).removeClass("fa-minus-square")
         $(this).addClass("fa-plus-square")
-        $(this).attr("plus", true);
+        $(this).attr("plus", "true");
+        console.log("inside add false")
     }
 })
 

@@ -112,7 +112,6 @@ $("#send-plans-x").on("click", function (event) {
 })
 
 // send plans button storing info and redirecting
-var groupName;
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
     if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
@@ -132,7 +131,7 @@ $("#send-plans-send-button").on("click", function (event) {
         }
     } else {
         var screenName = $("#screen-name").val()
-        var groupName = $("#group-name").val()
+        groupName = $("#group-name").val()
         localStorage.setItem("username", screenName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
@@ -141,6 +140,8 @@ $("#send-plans-send-button").on("click", function (event) {
                 console.log(emails)
             }
         }
+        var gKey = localStorage.getItem("groupKey");
+        firebase.database().ref("groups/" + gKey + "/groupName").set(groupName);
         emailSend()
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
@@ -238,13 +239,13 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
 // =======================  Listener for Weather  ========================
 
 
-// database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
-//     var icon = snap.val().icon;
-//     var forecast = snap.val().forecast;
-//     var forecastStartDate = snap.val().forecastStartDate;
-//     console.log(snap.val())
-//     console.log(forecastStartDate);
-// })
+database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
+    var icon = snap.val().icon;
+    var forecast = snap.val().forecast;
+    var forecastStartDate = snap.val().forecastStartDate;
+    console.log(snap.val())
+    console.log(forecastStartDate);
+})
 
  var icons = ["<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>", "<i class='fas fa-cloud'></i>"]
 var weather = ["partly cloudy day", "partly cloudy day", "partly cloudy day", "partly cloudy night", "partly cloudy day", "partly cloudy night"]
