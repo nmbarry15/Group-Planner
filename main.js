@@ -224,8 +224,9 @@ $("#chat-send-button").on("click", function(event) {
 database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChild("timestamp").on("child_added", function(snap) {
     console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
     if (snap.val().type === "message") {
-        var constructedMessage = $('<div data-time-display='+ snap.val().timeDisplay + '>');
+var constructedMessage = $('<div class ="parent">');
         var userStuff
+        var displayTime = $("<div class = 'child has-background-dark'>").html("<p class = 'has-text-white'> Sent at: "+snap.val().timeDisplay+"<p>")
         if (snap.val().user===localStorage.getItem("username")){
             userStuff= '<font color="red">'+snap.val().user+'</font>'
         }
@@ -234,7 +235,7 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChil
         }
         var messageContent = $("<span>").html(userStuff + ":\xa0\xa0" + snap.val().message);
 
-        constructedMessage.append(messageContent);
+        constructedMessage.append(messageContent, displayTime);
         $("#chat-box").append(constructedMessage);
         
     } else if (snap.val().type === "notification") {
