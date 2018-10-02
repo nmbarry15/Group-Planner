@@ -75,6 +75,8 @@ function api(one, two, three) {
             console.log(dayCount)
             if (eventLength + daysTill > 7) { eventLength = eventLength - (eventLength + daysTill - 7) }
             if (daysTill < 7) {
+                weatherArr = []
+                weatherIcon = []
                 for (let index = 0; index < eventLength; index++) {
                     var tempHolder = response.daily.data[dayCount].icon
                     tempHolder = tempHolder.replace(/-+/g, " ");
