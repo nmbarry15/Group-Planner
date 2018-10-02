@@ -113,12 +113,11 @@
 
                 <div class="chat-popup" id="myForm">
                   <form action="/action_page.php" class="form-container has-background-grey has-text-white">
-                    <h1>Chat</h1>
+                    <h1><b>Chat</b></h1>
+                    <div id="chat-box"></div>
                 
-                    <label for="msg"><b>Message</b></label>
-                    <textarea placeholder="Type message.." name="msg" required></textarea>
-                
-                    <button type="submit" class="btn has-background-white has-text-dark">Send</button>
+                    <input type="text" id="message-input"> 
+                    <button type="submit" class="btn has-background-white has-text-dark" id="chat-send-button">Send</button>
                     <button type="button" class="btn cancel has-background-black has-text-white" onclick="closeForm()">Close</button>
                   </form>
                 </div>
