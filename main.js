@@ -223,8 +223,8 @@ database.ref("groups/chat").orderByChild("timestamp").on("child_added", function
     console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
     if (snap.val().type === "message") {
         var constructedTableRow = $('<tr data-time-display='+ snap.val().timeDisplay + '>');
-        var username = $("<td>").text(snap.val().user);
-        var messageContent = $("<td>").text(snap.val().message);
+        var username = $("<td class='usernametd'>").text(snap.val().user);
+        var messageContent = $("<td class='msgtd'>").text(snap.val().message);
 
         constructedTableRow.append(username, messageContent);
         $("#chat-box").append(constructedTableRow);
