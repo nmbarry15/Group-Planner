@@ -152,8 +152,9 @@ transform: rotate(45deg);
   margin-bottom: 0;
 }
 
-.add-btn{
+.add-btn, .like-btn{
   padding: 2px;
+  display: block;
 }
 
 
