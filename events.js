@@ -262,17 +262,18 @@ $("body").on("click", ".toggle", function () {
 })
 
 $("body").on("click", ".like-btn", function () {
+    console.log("like clicked")
     var liked = $(this).attr("liked")
     if (liked === "false") {
         var notifyData = {
             user: localStorage.getItem("username"),
-            event: $(".like-btn").attr("title"),
+            event: $(this).attr("title"),
             timeDisplay: moment().format("HH:mm"),
             type: "notification",
             timestamp: moment().unix()
         }
 
-        // database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(notifyData);
+        database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(notifyData);
         $(this).attr("liked", "true")
         $(this).removeClass("far")
         $(this).addClass("fas")
