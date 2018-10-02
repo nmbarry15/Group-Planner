@@ -8,7 +8,7 @@ body {
 }
 
 html { 
-  background: url(images/party.jpg) no-repeat center center fixed; 
+  background: url(images/Party.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -134,6 +134,28 @@ transform: rotate(45deg);
   overflow: auto;
   height: 40px;
 }
+
+#event-holder{
+  font-size: smaller;
+}
+
+.media-left {
+  margin-right: 5px;
+}
+
+.media-right {
+  margin-left: 0;
+}
+
+.box{
+  padding: 8px 8px 0 8px;
+  margin-bottom: 0;
+}
+
+.add-btn{
+  padding: 2px;
+}
+
 
 
  /* footer (and bottom of body)
