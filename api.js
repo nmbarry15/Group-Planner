@@ -98,6 +98,13 @@ function api(one, two, three) {
                 }
                 console.log(weatherIcon)
                 console.log(weatherArr)
+
+                // var weatherData = {
+                //     icon: weatherIcon,
+                //     forecast: weatherArr,
+                //     forecastStartDate: $("#start-date").val().trim()
+                // }
+                // database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").set(weatherData);
             }
         }
     })
