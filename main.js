@@ -134,6 +134,7 @@ $("#send-plans-send-button").on("click", function (event) {
         var screenName = $("#screen-name").val()
         var groupName = $("#group-name").val()
         localStorage.setItem("username", screenName);
+        localStorage.setItem("groupName", groupName);
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
             if (email !== "") {
@@ -145,7 +146,6 @@ $("#send-plans-send-button").on("click", function (event) {
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
         window.location = "planner.html"
-        $("#group-plans").text(groupName + " Plans");
     }
 });
 
