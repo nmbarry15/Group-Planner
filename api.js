@@ -7,7 +7,7 @@ var dateCompareE
 var dateCompareS
 var eventStuff = {}
 var weatherArr = []
-var weatherIcon =[]
+var weatherIcon = []
 
 var eventType = {
     outdoors: "&category=outdoors_recreation,festivals_parades&within=25&page_number=1&page_size=6&sort_order=popularity",
@@ -46,6 +46,8 @@ function api(one, two, three) {
                 }
                 cat.push(eventStuff)
             }
+            api(latlocation, "lat")
+            pushApiData(cat);
 
         }
         else if (two === "geo") {
@@ -67,28 +69,28 @@ function api(one, two, three) {
             var daysTill = Math.floor(diff / 86400)
             if (daysTill < 0) { daysTill = 0 }
             dayCount = daysTill
-            if (dayCount !== 0){
+            if (dayCount !== 0) {
                 dayCount++
             }
             console.log(dayCount)
-            if (eventLength+daysTill>7){eventLength= eventLength-(eventLength+daysTill-7)}
+            if (eventLength + daysTill > 7) { eventLength = eventLength - (eventLength + daysTill - 7) }
             if (daysTill < 7) {
                 for (let index = 0; index < eventLength; index++) {
-                    var tempHolder=response.daily.data[dayCount].icon
-                    tempHolder= tempHolder.replace(/-+/g, " ");
-                   
-                     if ((tempHolder.indexOf("clear"))!== -1){
-                         weatherIcon.push('<i class="fas fa-sun"></i>')
-                     }
-                     else if ((tempHolder.indexOf("rain"))!== -1 ||(tempHolder.indexOf("sleet"))!== -1){
-                         weatherIcon.push('<i class="fas fa-umbrella"></i>')
-                     }
-                     else if ((tempHolder.indexOf("snow"))!== -1){
-                         weatherIcon.push('<i class="fas fa-snowflake"></i>')
-                     }
-                     else if ((tempHolder.indexOf("wind"))!== -1||(tempHolder.indexOf("cloudy"))!== -1||(tempHolder.indexOf("fog"))!== -1){
+                    var tempHolder = response.daily.data[dayCount].icon
+                    tempHolder = tempHolder.replace(/-+/g, " ");
+
+                    if ((tempHolder.indexOf("clear")) !== -1) {
+                        weatherIcon.push('<i class="fas fa-sun"></i>')
+                    }
+                    else if ((tempHolder.indexOf("rain")) !== -1 || (tempHolder.indexOf("sleet")) !== -1) {
+                        weatherIcon.push('<i class="fas fa-umbrella"></i>')
+                    }
+                    else if ((tempHolder.indexOf("snow")) !== -1) {
+                        weatherIcon.push('<i class="fas fa-snowflake"></i>')
+                    }
+                    else if ((tempHolder.indexOf("wind")) !== -1 || (tempHolder.indexOf("cloudy")) !== -1 || (tempHolder.indexOf("fog")) !== -1) {
                         weatherIcon.push('<i class="fas fa-cloud"></i>')
-                     }
+                    }
                     weatherArr.push(tempHolder)
                     dayCount++
                 }
@@ -108,8 +110,7 @@ function apiCall(one, two) {
         var full = one + eventpiece
         api(full, "event", blah)
     }
-    api(latlocation, "lat")
-    pushApiData(cat);
+
 }
 // email stuff below
 var templateParams
