@@ -419,7 +419,7 @@ $("#like-button").on("click", function(event) {
     var notifyData = {
         user: localStorage.getItem("username"),
         event: "Event Name",
-        timeDisplay: moment().format("HH:mm:ss"),
+        timeDisplay: moment().format("HH:mm"),
         type: "notification",
         timestamp: moment().unix()
     }
@@ -429,12 +429,17 @@ $("#like-button").on("click", function(event) {
 
 // =======================  Listener for any Chat Log Updates  ========================
 // REAL DB REFERENCE database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChild("timestamp").on("child_added", function(snap) {
+
 database.ref("groups/chat").orderByChild("timestamp").on("child_added", function(snap) {
     console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
     if (snap.val().type === "message") {
-        var messageConstructed = $("<p>").text(snap.val().user + ":\xa0\xa0" + snap.val().message);
-        $("#chat-box").append(messageConstructed);
+        var constructedTableRow = $('<tr data-time-display='+ snap.val().timeDisplay + '>');
+        var username = $("<td>").text(snap.val().user);
+        var messageContent = $("<td>").text(snap.val().message);
 
+        constructedTableRow.append(username, messageContent);
+        $("#chat-box").append(constructedTableRow);
+        
     } else if (snap.val().type === "notification") {
         var notificationConstructed = $("<p class='bg-info'>").text(snap.val().timeDisplay + ":\xa0\xa0" + snap.val().user + " liked event, " + snap.val().event + "!")
         $("#chat-box").append(notificationConstructed);
