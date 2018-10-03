@@ -138,7 +138,7 @@ function emailSend() {
         key: intName,
         toEmail: emailAdds,
     };
-    console.log(templateParams)
+    console.log(templateParams)//error watch for email
     emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
         console.log('SUCCESS!', response.status, response.text);
     }, function (error) {
