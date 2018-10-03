@@ -263,7 +263,11 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").once("va
     }
 
 })
+database.ref("groups/" + localStorage.getItem("groupKey")).once("value", function(snap) {  
+    groupNam=snap.val().groupName
+    console.log(groupNam)}
+)
 }
-    
+
 
 
