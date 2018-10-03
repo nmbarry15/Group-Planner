@@ -114,9 +114,9 @@ $("#send-plans-x").on("click", function (event) {
 // send plans button storing info and redirecting
 $("#send-plans-send-button").on("click", function (event) {
     event.preventDefault();
-    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")) {
+    if (($("#email0").val().trim() === "") || ($("#group-name").val().trim() === "") || ($("#screen-name").val().trim() === "")|| $("#email0").val().indexOf("@") === -1 || $("#email0").val().indexOf(".") === -1) {
         $("#no-sir").remove();
-        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your email are required.</h1>')
+        $("#send-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="no-sir">Group name, screen name, and your valid email are required.</h1>')
         reset($("#email0"))
         reset($("#group-name"))
         reset($("#screen-name"))
@@ -132,6 +132,7 @@ $("#send-plans-send-button").on("click", function (event) {
     } else {
         var screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
+        
         localStorage.setItem("username", screenName);
         localStorage.setItem("groupName", groupName)
         for (i = 0; i < 11; i++) {
@@ -156,6 +157,7 @@ $("#view-plans-submit-button").on("click", function (event) {
     event.preventDefault();
     if (($("#username").val().trim() !== "") && ($("#plan-key").val().trim() !== "")) {
         var screenName = $("#username").val().trim()
+        localStorage.setItem("groupKey", $("#plan-key").val().trim())
         localStorage.setItem("username", screenName);
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
@@ -189,9 +191,9 @@ function closeForm() {
 
 $("#chat-send-button").on("click", function(event) {
     event.preventDefault();
-    
+    if ($("#message-input").val().trim()!==""){
     var msgData = {
-        message: $("#message-input").val(),
+        message: $("#message-input").val().trim(),
         user: localStorage.getItem("username"),
         timeDisplay: moment().format("HH:mm:ss"),
         type: "message",
@@ -199,7 +201,7 @@ $("#chat-send-button").on("click", function(event) {
     };
     database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").push(msgData);
     $("#message-input").val("");
-});
+}});
 
 // =======================  Like Button or Notification On Click  ========================
 
@@ -221,28 +223,47 @@ $("#chat-send-button").on("click", function(event) {
 database.ref("groups/" + localStorage.getItem("groupKey") + "/chat").orderByChild("timestamp").on("child_added", function(snap) {
     console.log("This is is the key being used to pull chat data:" + localStorage.getItem("groupKey"));
     if (snap.val().type === "message") {
-        var constructedMessage = $('<div data-time-display='+ snap.val().timeDisplay + '>');
-        var messageContent = $("<span>").text(snap.val().user + ":\xa0\xa0" + snap.val().message);
+var constructedMessage = $('<div class ="parent">');
+        var userStuff
+        var displayTime = $("<div class = 'child has-background-dark'>").html("<p class = 'has-text-white'> Sent at: "+snap.val().timeDisplay+"<p>")
+        if (snap.val().user===localStorage.getItem("username")){
+            userStuff= '<font color="red">'+snap.val().user+'</font>'
+        }
+        else{
+            userStuff= '<font color="blue">'+snap.val().user+'</font>'
+        }
+        var messageContent = $("<span>").html(userStuff + ":\xa0\xa0" + snap.val().message);
 
-        constructedMessage.append(messageContent);
+        constructedMessage.append(messageContent, displayTime);
         $("#chat-box").append(constructedMessage);
         
     } else if (snap.val().type === "notification") {
         var constructedNotification = $('<div class="has-backgorund-liked" data-time-display='+ snap.val().timeDisplay + '>');
-        var notificationContent = $("<span>").text(snap.val().user + " liked the event:\xa0" + snap.val().event);
+        var notificationContent = $("<span>").html('<font color="green">'+snap.val().user + "</font> liked the event:\xa0" + snap.val().event);
 
         constructedNotification.append(notificationContent);
         $("#chat-box").append(constructedNotification);
     }
 })
 // =======================  Listener for Weather  ========================
+var icon
+var forecast
+var forecastStartDate
+if ( $("#checkIt").attr("value")==="true" ) {
+database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").once("value", function(snap) {
+     icon = snap.val().icon;
+     forecast = snap.val().forecast;
+     forecastStartDate = snap.val().forecastStartDate;
+     console.log(forecast, forecastStartDate, icon)
+     console.log(icon[0])
+     for (x=0;x<forecast.length;x++){
+         console.log("I be in it")
+        var y = x+1
+        $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icon[x] +" </div>")
+    }
 
-
-database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").on("child_added", function(snap) {
-    var icon = snap.val().icon;
-    var forecast = snap.val().forecast;
-    var forecastStartDate = snap.val().forecastStartDate;
-    console.log(snap.val())
-    console.log(forecastStartDate);
 })
+}
+    
+
 
