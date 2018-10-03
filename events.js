@@ -1,12 +1,12 @@
 //add firebase data to planner.html
-var gKey = localStorage.getItem("groupKey");
+var gKey = localStorage.getItem("groupKey")
 firebase.database().ref("groups/" + gKey).on("child_added", function (snap) {
     var sportsArr = [];
     var outdoorArr = [];
     var musicArr = [];
     var popArr = [];
-    console.log(snap.val());
-    var groupName = snap.val();
+    // console.log(snap.val());
+    var groupName = localStorage.getItem("groupName")
     $("#group-plans").text(groupName + "'s Plans")
 
     snap.forEach(function (child) {

@@ -130,10 +130,11 @@ $("#send-plans-send-button").on("click", function (event) {
             makeRed($("#screen-name"))
         }
     } else {
-        var screenName = $("#screen-name").val()
+         screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
         
         localStorage.setItem("username", screenName);
+        localStorage.setItem("groupName", groupName)
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
             if (email !== "") {
@@ -174,8 +175,6 @@ $("#view-plans-submit-button").on("click", function (event) {
         }
     }
 })
-
-$("#group-plans").text(localStorage.getItem("groupName") + "'s Plans");
 
 // chat
 function openForm() {
@@ -257,14 +256,19 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").once("va
      forecastStartDate = snap.val().forecastStartDate;
      console.log(forecast, forecastStartDate, icon)
      console.log(icon[0])
+     console.log(forecast[0])
      for (x=0;x<forecast.length;x++){
          console.log("I be in it")
         var y = x+1
-        $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icon[x] +" </div>")
+        $("#weather-holder").append("<div class='has-text-centered column'>Day "+  y +" <br>"+ icon[x] +"<br>"+ forecast[x].replace(/\b\w/g, l => l.toUpperCase()) + "</div>")
     }
 
 })
+database.ref("groups/" + localStorage.getItem("groupKey")).once("value", function(snap) {  
+    groupNam=snap.val().groupName
+    console.log(groupNam)}
+)
 }
-    
+
 
 

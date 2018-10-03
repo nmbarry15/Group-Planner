@@ -139,9 +139,9 @@ function emailSend() {
         toEmail: emailAdds,
     };
     console.log(templateParams)
-    // emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
-    //     console.log('SUCCESS!', response.status, response.text);
-    // }, function (error) {
-    //     console.log('FAILED...', error);
-    // });
+    emailjs.send('groupplanneremail_gmail_com', 'sendkey', templateParams).then(function (response) {
+        console.log('SUCCESS!', response.status, response.text);
+    }, function (error) {
+        console.log('FAILED...', error);
+   });
 }
