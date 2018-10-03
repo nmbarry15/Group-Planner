@@ -133,6 +133,7 @@ $("#send-plans-send-button").on("click", function (event) {
         var screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
         localStorage.setItem("username", screenName);
+        localStorage.setItem("groupName", groupName)
         for (i = 0; i < 11; i++) {
             var email = $("#email" + i).val().trim()
             if (email !== "") {
@@ -172,8 +173,6 @@ $("#view-plans-submit-button").on("click", function (event) {
         }
     }
 })
-
-$("#group-plans").text(localStorage.getItem("groupName") + "'s Plans");
 
 // chat
 function openForm() {
