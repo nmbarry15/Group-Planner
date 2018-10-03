@@ -147,7 +147,9 @@ $("#send-plans-send-button").on("click", function (event) {
         emailSend()
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
-        window.location = "planner.html"
+        setTimeout(nextPag, 1000)
+        function nextPag(){
+        window.location = "planner.html"}
         $("#group-plans").text(groupName + " Plans");
     }
 });
@@ -161,7 +163,10 @@ $("#view-plans-submit-button").on("click", function (event) {
         localStorage.setItem("username", screenName);
         // store group name locally, in firebase, or both?
         //store event key locally, in firebase, or both?
-        window.location = "planner.html"
+        setTimeout(nextPage, 1000)
+        function nextPage(){
+        window.location = "planner.html"}
+
     } else {
         $("#nope").remove();
         $("#view-plans-modal-body").prepend('<h1 class="title is-3 has-text-danger" id="nope">Plan key and screen name required.</h1>')
