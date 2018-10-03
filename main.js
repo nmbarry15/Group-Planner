@@ -256,10 +256,11 @@ database.ref("groups/" + localStorage.getItem("groupKey") + "/weather").once("va
      forecastStartDate = snap.val().forecastStartDate;
      console.log(forecast, forecastStartDate, icon)
      console.log(icon[0])
+     console.log(forecast[0])
      for (x=0;x<forecast.length;x++){
          console.log("I be in it")
         var y = x+1
-        $("#weather-holder").append("<div class='column'>Day "+ y+" <br>"+ icon[x] +" </div>")
+        $("#weather-holder").append("<div class='has-text-centered column'>Day "+  y +" <br>"+ icon[x] +"<br>"+ forecast[x].replace(/\b\w/g, l => l.toUpperCase()) + "</div>")
     }
 
 })
