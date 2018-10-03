@@ -130,7 +130,7 @@ $("#send-plans-send-button").on("click", function (event) {
             makeRed($("#screen-name"))
         }
     } else {
-        var screenName = $("#screen-name").val()
+         screenName = $("#screen-name").val()
         groupName = $("#group-name").val()
         
         localStorage.setItem("username", screenName);
